@@ -10,6 +10,7 @@ from datetime import timedelta,datetime
 import requests
 from telebot import types
 import os
+import png
 
 
 #bot api
