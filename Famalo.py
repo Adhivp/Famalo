@@ -10,6 +10,7 @@ from datetime import timedelta,datetime
 import requests
 from telebot import types
 import os
+import png
 
 
 #bot api
@@ -38,7 +39,7 @@ def joke(message):
     time.sleep(2) #for joke purpose
     bot.send_sticker(message.chat.id,"https://media.tenor.com/07qImC4D1ToAAAAC/i-was-just-kidding-kidding.gif")
     bot.send_message(message.chat.id,"Here is your joke")
-    #Takes a joke randomly from libary
+    #Takes a joke randomly from pyjokes libary
     jokes_text=pyjokes.get_joke("en","all")
     bot.send_message(message.chat.id,jokes_text) #send joke
 
