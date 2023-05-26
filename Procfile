@@ -1,1 +1,1 @@
-worker: python3 Famalo.py
+python3 Famalo.py
