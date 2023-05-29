@@ -11,10 +11,10 @@ import requests
 from telebot import types
 import os
 import png
-
+from API_of_adhi import API_key_Famalo,coporate_bs_api_key
 
 #bot api
-token = '5623964973:AAE7TTjBEKqqXtBSjyyeQ6LkqDbSFEZmU3k'
+token = API_key_Famalo()
 bot = telebot.TeleBot(token)
 
 @bot.message_handler(commands=['start','help'])
@@ -157,13 +157,10 @@ def calculating_sending_output(speed,message): # final calculation and output
     
 @bot.message_handler(commands=['coporatebs'])
 def coporatebs(message):
-    url = "https://sameer-kumar-corporate-bs-generator-v1.p.rapidapi.com/" #api
-    headers = {
-	"X-RapidAPI-Key": "e942e44fb7mshc044bd7b093724ep1a4464jsn742ca24c0016",
-	"X-RapidAPI-Host": "sameer-kumar-corporate-bs-generator-v1.p.rapidapi.com"
-    }
+    url = "https://sameer-kumar-corporate-bs-generator-v1.p.rapidapi.com/" #url of api
+    
     #get response from api
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers= coporate_bs_api_key()) #api key and host
     #converting it to dictionary from json
     phrase = response.json()
     bot.send_message(message.chat.id,"So you wanna here some Coporate 🐂💩\nWhich makes no sense\nBut sounds complex🤔😵‍💫")
