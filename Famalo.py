@@ -14,7 +14,8 @@ import png
 
 
 #bot api
-bot = telebot.TeleBot("5623964973:AAHrx2D1uP1dwk8HZ5Yxnt62y_HE8C-YEnA")
+token = '5623964973:AAE7TTjBEKqqXtBSjyyeQ6LkqDbSFEZmU3k'
+bot = telebot.TeleBot(token)
 
 @bot.message_handler(commands=['start','help'])
 def send_welcome(message):#message default parameter
@@ -68,7 +69,7 @@ def text_to_audio_processing(message): #processing input of user
     with open("audio.mp3", "rb") as audio_file:
     # Send the audio file
         bot.send_audio(message.chat.id, audio_file)
-    os.remove("audio.mp3")
+    os.remove("audio.mp3") #delete after sending
 
     
 
@@ -100,17 +101,17 @@ def Processing_qrcodegenerator(message): # handling user input
 @bot.message_handler(commands=['playbackspeedcalculator'])
 def playbackspeedcalculator(message):
     bot.send_message(message.chat.id,"So you wanna know is it worth to watch your lecture in fast mode ")
-    message = bot.send_message(message.chat.id,"Type length of your video in this format (00:00:00)\nlimit (23:59:59)")
+    message = bot.send_message(message.chat.id,"Type the length of your video in this format (00:00:00)\nlimit (23:59:59)")
     bot.register_next_step_handler(message,Validating_input)
 
 def Validating_input(message): # error management
-    global time # for using it in all functions
-    time = message.text
-    if len(time) == 8:
-        conditions = (time[0] in '012',time[1] in '0123456789', # conditions for true input
-                        time[2] == ':',time[3] in '012345',
-                        time[4] in '0123456789',time[5] == ':',
-                        time[6] in '012345',time[7] in '0123456789')
+    global time1 # for using it in all functions
+    time1 = message.text
+    if len(time1) == 8:
+        conditions = (time1[0] in '012',time1[1] in '0123456789', # conditions for true input
+                        time1[2] == ':',time1[3] in '012345',
+                        time1[4] in '0123456789',time1[5] == ':',
+                        time1[6] in '012345',time1[7] in '0123456789')
         if all(conditions):
             bot.send_message(message.chat.id,"OK")
             input_playback_speed(message)
@@ -144,14 +145,14 @@ def validating_input2(message): #error management
         
 def calculating_sending_output(speed,message): # final calculation and output
     # converting to seconds
-    original_total_seconds = (int(time[0]+time[1]) * 3600)+ (int(time[3]+time[4]) * 60) + (int(time[6]+time[7]))
+    original_total_seconds = (int(time1[0]+time1[1]) * 3600)+ (int(time1[3]+time1[4]) * 60) + (int(time1[6]+time1[7]))
     calculated_result_seconds = float(original_total_seconds)/float(speed) # result
     rounded_calculated_result_seconds = round(calculated_result_seconds, 0) # removing decimal part
     result_time = timedelta(seconds=rounded_calculated_result_seconds) # changing format
     bot.send_message(message.chat.id,f"Calculated Time = {result_time}")  # send
-    datetime1 = datetime.strptime(time,"%H:%M:%S")
+    datetime1 = datetime.strptime(time1,"%H:%M:%S")
     datetime2 = datetime.strptime(str(result_time),"%H:%M:%S")
-    saved_time = datetime1 - datetime2 # subracting to find saved time 
+    saved_time = datetime1 - datetime2 # subracting to find saved time
     bot.send_message(message.chat.id,f"Time you can save at {speed} = {saved_time}") #send saved time
     
 @bot.message_handler(commands=['coporatebs'])
@@ -306,6 +307,5 @@ def contact(message):
     bot.reply_to(message,"So you wanna contact the developer")
     bot.send_message(message.chat.id,"Here you go")
     bot.send_message(message.chat.id,"@ADHIVP") #telegram user id 
-
 
 bot.infinity_polling()
