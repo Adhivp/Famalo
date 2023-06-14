@@ -11,6 +11,7 @@ import requests
 from telebot import types
 import os
 import png
+from tabulate import tabulate
 from API_of_adhi import API_key_Famalo,coporate_bs_api_key
 
 #bot api
@@ -30,6 +31,8 @@ def send_welcome(message):#message default parameter
     bot.send_message(message.chat.id,"Superhero Deatils 🦸🦹 -/super") #sends http request to super hero deatils api
     bot.send_message(message.chat.id,"Random Meme Generator 😂 -/meme")#sends http request to meme generator api
     bot.send_message(message.chat.id,"Random Activity Generator 😴🥱😃 -/activity") #sends http request to activity generator api
+    bot.send_message(message.chat.id,"External mark needed for specific grade🧑‍🎓 -/gradecalculator") #feature implemented from scratch(tabulate for output)
+
     bot.send_message(message.chat.id,"Contact📱-/contact") 
 
 @bot.message_handler(commands=['joke'])
@@ -298,6 +301,72 @@ def callback_query_send_response(call):
         data = response.json()
         bot.send_message(call.message.chat.id, data['activity'])
 
+@bot.message_handler(commands=['gradecalculator'])
+def gradecalculator(message):
+    bot.send_message(message.chat.id,"This calculator will tell the external marks required for each grade according to your internal mark")
+    bot.send_photo(message.chat.id,"https://imgtr.ee/images/2023/06/05/bAsnI.png")
+    bot.send_message(message.chat.id,"This will be used as reference for calculation")
+    bot.send_message(message.chat.id,"Enter your total internal mark(15 or 20)")
+    bot.register_next_step_handler(message,total_internal_mark_validation)
+
+def total_internal_mark_validation(message):
+    total_internal_mark = message.text
+    total_internal_mark = int(total_internal_mark)
+    if total_internal_mark in (20,15):
+        bot.send_message(message.chat.id,"OK")
+        bot.send_message(message.chat.id,f"Enter your internal mark (out of {total_internal_mark})")
+        bot.register_next_step_handler(message,internal_mark_validation,total_internal_mark)
+    else:
+        bot.send_message(message.chat.id,"Wrong input! Try again")
+        gradecalculator(message) 
+
+def internal_mark_validation(message,total_internal_mark):
+    internal_mark = message.text
+    internal_mark = int(internal_mark)
+    if internal_mark <= total_internal_mark and internal_mark >= 0 :
+        bot.send_message(message.chat.id,"OK")
+        list_with_internal_total_internal = [internal_mark,total_internal_mark]
+        send_output(message,list_with_internal_total_internal)
+    else:
+        bot.send_message(message.chat.id,"Wrong input! Try again")
+        gradecalculator(message)
+
+
+def send_output(message,list_with_internal_total_internal):
+    internal_mark = list_with_internal_total_internal[0]
+    total_internal_mark = list_with_internal_total_internal[1]
+    if total_internal_mark == 20:
+        total_mark = 100
+        total_external_mark = 80
+    elif total_internal_mark == 15:
+        total_mark = 75
+        total_external_mark = 60
+    O_grade = (total_mark  * 95/100 ) - internal_mark 
+    A1_grade = (total_mark  * 85/100 ) - internal_mark 
+    A2_grade = (total_mark  * 75/100 ) - internal_mark 
+    B1_grade = (total_mark  * 65/100 ) - internal_mark 
+    B2_grade = (total_mark  * 55/100 ) - internal_mark 
+    C_grade = (total_mark  * 45/100 ) - internal_mark 
+    P_grade = (total_mark  * 35/100) - internal_mark
+    F_grade = P_grade - 0.01
+    list_with_External_Marks = [O_grade,A1_grade,A2_grade,B1_grade,B2_grade,C_grade,P_grade,F_grade]
+    for i in range(len(list_with_External_Marks)-1):
+        if list_with_External_Marks[i] > total_external_mark:
+            list_with_External_Marks[i] = "Not possible"
+        else:
+            list_with_External_Marks[i] = "Above " + str(list_with_External_Marks[i])
+    list_with_External_Marks[-1] = "Below " + str(list_with_External_Marks[-1])
+    data = [["O",list_with_External_Marks[0]],
+            ["A+",list_with_External_Marks[1]],
+            ["A",list_with_External_Marks[2]],
+            ["B+",list_with_External_Marks[3]],
+            ["B",list_with_External_Marks[4]],
+            ["C",list_with_External_Marks[5]],
+            ["P",list_with_External_Marks[6]],
+            ["F",list_with_External_Marks[7]]]
+    table_string = tabulate(data, headers=["Grade","External marks Needed"], tablefmt="grid")
+    print(table_string)
+    bot.send_message(message.chat.id,table_string)
 
 @bot.message_handler(commands=['contact'])
 def contact(message):
