@@ -12,7 +12,7 @@ from telebot import types
 import os
 import png
 from tabulate import tabulate
-from API_of_adhi import API_key_Famalo,coporate_bs_api_key
+from API_of_adhi import API_key_Famalo,coporate_bs_api_key,API_weather_key #API keys
 
 #bot api
 token = API_key_Famalo()
@@ -30,9 +30,9 @@ def send_welcome(message):#message default parameter
     bot.send_message(message.chat.id,"Coporate BS 🐂💩 - /coporatebs") #sends http request to Coporate bs api
     bot.send_message(message.chat.id,"Superhero Deatils 🦸🦹 -/super") #sends http request to super hero deatils api
     bot.send_message(message.chat.id,"Random Meme Generator 😂 -/meme")#sends http request to meme generator api
-    bot.send_message(message.chat.id,"Random Activity Generator 😴🥱😃 -/activity") #sends http request to activity generator api
-    bot.send_message(message.chat.id,"External mark needed for specific grade🧑‍🎓 -/gradecalculator") #feature implemented from scratch(tabulate for output)
-
+    bot.send_message(message.chat.id,"Random Activity Generator 😴🥱😃 -/activity") #sends http request to activity generator api with buttons implemented from scratch
+    bot.send_message(message.chat.id,"External mark needed for specific grade🧑‍🎓 -/gradecalculator") #feature implemented from scratch(tabulate and html for output)
+    bot.send_message(message.chat.id,"Weather deatils of your current location⛅ -/weather") # imeplemented using buttons from scratch and openweather api for data
     bot.send_message(message.chat.id,"Contact📱-/contact") 
 
 @bot.message_handler(commands=['joke'])
@@ -348,14 +348,13 @@ def send_output(message,list_with_internal_total_internal):
     B2_grade = (total_mark  * 55/100 ) - internal_mark 
     C_grade = (total_mark  * 45/100 ) - internal_mark 
     P_grade = (total_mark  * 35/100) - internal_mark
-    F_grade = P_grade - 0.01
+    F_grade = f"Below {P_grade}" 
     list_with_External_Marks = [O_grade,A1_grade,A2_grade,B1_grade,B2_grade,C_grade,P_grade,F_grade]
     for i in range(len(list_with_External_Marks)-1):
         if list_with_External_Marks[i] > total_external_mark:
             list_with_External_Marks[i] = "Not possible"
         else:
             list_with_External_Marks[i] = "Above " + str(list_with_External_Marks[i])
-    list_with_External_Marks[-1] = "Below " + str(list_with_External_Marks[-1])
     data = [["O",list_with_External_Marks[0]],
             ["A+",list_with_External_Marks[1]],
             ["A",list_with_External_Marks[2]],
@@ -364,9 +363,57 @@ def send_output(message,list_with_internal_total_internal):
             ["C",list_with_External_Marks[5]],
             ["P",list_with_External_Marks[6]],
             ["F",list_with_External_Marks[7]]]
-    table_string = tabulate(data, headers=["Grade","External marks Needed"], tablefmt="grid")
-    print(table_string)
-    bot.send_message(message.chat.id,table_string)
+    #converts list to a table with borders 
+    table_string = tabulate(data, headers=["Grade","External marks Needed"], tablefmt="grid",colalign=("left", "left"))
+    table_html = f"<pre>{table_string}</pre>" #used html for making borders uniform (according to data)
+    bot.send_message(message.chat.id, text=table_html, parse_mode="HTML")
+@bot.message_handler(commands=['weather'])
+def weather(message):
+    #defining Send Location button
+    keyboard_markup = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
+    button_location = types.KeyboardButton(text="Send Location", request_location=True)
+    keyboard_markup.add(button_location)
+    
+    # Send the message with the request for location
+    bot.send_message(message.chat.id, "Please send your location.", reply_markup=keyboard_markup)
+    bot.register_next_step_handler(message,handle_location)
+
+def handle_location(message):
+    #taking input from user and storing data in specific variables
+    location = message.location
+    latitude = location.latitude
+    longitude = location.longitude
+    remove_keyboard_command = types.ReplyKeyboardRemove()
+    bot.send_message(message.chat.id, "Location identified", reply_markup=remove_keyboard_command)
+    send_output_weather(message,latitude,longitude)
+
+def send_output_weather(message,latitude,longitude):
+    API_weather = API_weather_key()
+    response = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={API_weather}&units=metric")
+    data = response.json()
+    print(data)
+    #assigning each variable to a data from response
+    name = data['name']
+    description = data['weather'][0]['description']
+    temp = data['main']['temp']
+    feels_like = data['main']['feels_like']
+    temp_min = data['main']['temp_min']
+    temp_max = data['main']['temp_max']
+    pressure = data['main']['pressure']
+    humidity = data['main']['humidity']
+    wind_speed = data['wind']['speed']
+
+    # Sending the extracted data to user
+    bot.send_message(message.chat.id, f"Name: {name}")
+    bot.send_message(message.chat.id, f"Description: {description}")
+    bot.send_message(message.chat.id, f"Temperature: {temp}°C")
+    bot.send_message(message.chat.id, f"Feels like: {feels_like}°C")
+    bot.send_message(message.chat.id, f"Minimum Temperature: {temp_min}°C")
+    bot.send_message(message.chat.id, f"Maximum Temperature: {temp_max}°C")
+    bot.send_message(message.chat.id, f"Pressure: {pressure} hPa")
+    bot.send_message(message.chat.id, f"Humidity: {humidity}%")
+    bot.send_message(message.chat.id, f"Wind Speed: {wind_speed} m/s")
+    #forecast data can be added in the future
 
 @bot.message_handler(commands=['contact'])
 def contact(message):
