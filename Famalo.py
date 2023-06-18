@@ -75,6 +75,7 @@ def send_st_thomas_college_menu(message):
 @bot.message_handler(commands=['system'])
 def send_system_menu(message):
     bot.send_message(message.chat.id,"System-based MENU")
+    bot.send_message(message.chat.id,"Linux distro Recommendator -/linuxdistro")
 
 @bot.message_handler(commands=['fun'])
 def send_fun_menu(message):
@@ -723,9 +724,51 @@ def handle_zoology(call):
 
 
 ################################################# Computer-based Menu Features##################################################
+### Linux Distro  Reccomendator ####
+@bot.message_handler(commands=['linuxdistro'])
+def linux_distro_reccomendator_menu(message):
+    keyboard = types.InlineKeyboardMarkup()
 
-pass
+    # Define inline buttons
+    button1 = types.InlineKeyboardButton(text='Beginners', callback_data='beginners')
+    button2 = types.InlineKeyboardButton(text='Gamers', callback_data='gamers')
+    button3 = types.InlineKeyboardButton(text='Professional Use', callback_data='professional_use')
+    button4 = types.InlineKeyboardButton(text='Low-spec System', callback_data='low_spec_system')
+    button5 = types.InlineKeyboardButton(text='Hackers', callback_data='hackers')
+    button6 = types.InlineKeyboardButton(text='Developers', callback_data='developers')
+    keyboard.add(button1, button2, button3, button4, button5, button6)
+    bot.send_message(message.chat.id, 'Please select an option:', reply_markup=keyboard)
 
+@bot.callback_query_handler(func=lambda call: call.data == 'beginners')
+def handle_beginners(call):
+    bot.send_message(call.message.chat.id, 'Top linux Distro for beginners')
+    bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_beginners)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'gamers')
+def handle_gamers(call):
+    bot.send_message(call.message.chat.id, 'Top linux Distro for gamers')
+    bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_gamers)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'professional_use')
+def handle_professional_use(call):
+    bot.send_message(call.message.chat.id, 'Top linux Distro for Professional_use')
+    bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_proffesional_use)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'low_spec_system')
+def handle_low_spec_system(call):
+    bot.send_message(call.message.chat.id, 'Top linux Distro for low_spec_system')
+    bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_low_spec_system)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'hackers')
+def handle_hackers(call):
+    bot.send_message(call.message.chat.id, 'Top linux Distro for Hackers')
+    bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_hackers)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'developers')
+def handle_developers(call):
+    bot.send_message(call.message.chat.id, 'Top linux Distro for Developers')
+    bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_developers)
+##############################
 ######################################################################################################################
 
 

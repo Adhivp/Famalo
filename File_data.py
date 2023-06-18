@@ -185,3 +185,27 @@ Zoology_bsc_zoology = "https://stthomas.ac.in/wp-content/uploads/2021/12/BSc-Zoo
 Zoology_msc_zoology = "https://stthomas.ac.in/wp-content/uploads/2021/12/Msc-Zoology.pdf"
 
 #####################
+
+###Linux distro recomendator data ###
+linux_distro_recomendator_beginners = "1. Ubuntu\n2. Linux Mint\n3. Zorin OS\n4. Elementary OS\n5. Linux Lite\n6. Manjaro Linux\n7. Pop!_OS\n8. Peppermint OS\n9. Deepin"
+linux_distro_recomendator_gamers = "1. Fedora\n2. Garuda Linux\n3. Pop!_OS\n4. Ubuntu\n5. Drauger OS\n6. Regata OS\n7. SteamOS (Holo ISO)\n8. Manjaro\n9. Linux Mint\n10. Lakka Linux"
+linux_distro_recomendator_proffesional_use = "1. Debian Linux\n 2. Manjaro Linux\n3. AlmaLinux/Rocky Linux\n4. Ubuntu\n5. OpenSUSE\n 6. Linux Mint"
+linux_distro_recomendator_low_spec_system = '''1. Tiny Core
+2. Puppy Linux
+3. SparkyLinux
+4. antiX Linux
+5. Bodhi Linux
+6. CrunchBang++
+7. LXLE
+8. Linux Lite
+9. Lubuntu
+10. Peppermint
+11. Linux Mint Xfce
+12. Xubuntu
+13. Zorin OS Lite
+14. Ubuntu MATE
+15. Slax
+16. Q4OS'''
+linux_distro_recomendator_hackers = "1. Kali Linux\n2. BackBox\n3. ParrotOS\n4. BlackArch\n5. Samurai Web Testing Framework\n6. Pentoo Linux\n7. CAINE\n8. Network Security Toolkit\n9. Fedora Security Spin\n10. ArchStrike"
+linux_distro_recomendator_developers = "1. Manjaro\n2. Ubuntu\n3. Pop!_OS\n4. Debian\n5. openSUSE\n6. Arch Linux\n7. Fedora Workstation\n8. Kali Linux\n9. Raspberry Pi OS\n10. Solus OS"
+
