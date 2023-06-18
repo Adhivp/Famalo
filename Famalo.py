@@ -44,7 +44,6 @@ def send_education_menu(message):
     bot.send_message(message.chat.id,"Youtube Course Recommendator -/youtubecourse")
     bot.send_message(message.chat.id,"Cheat sheets -/cheatsheet")
     bot.send_message(message.chat.id,"Github learning Resources -/githublearn")
-    bot.send_message(message.chat.id,"Location of Nearest Libaries")
 
 @bot.message_handler(commands=['calculators'])
 def send_calculator_menu(message):
@@ -59,6 +58,7 @@ def send_Generator_menu(message):
     bot.send_message(message.chat.id,"PasswordGenerator 🔐 - /password") #uses password_generator libary
     bot.send_message(message.chat.id,"Text to audio converter🎵 - /textaudio") # use GTTS libary
     bot.send_message(message.chat.id,"QR Code Generator - /qrcodegenerator") #uses pyqr code libary
+    bot.send_message(message.chat.id,"Morse Code Generator - /morsecode")
 
 @bot.message_handler(commands=['reallife'])
 def send_real_life_menu(message):
@@ -423,6 +423,20 @@ def Processing_qrcodegenerator(message): # handling user input
     qr_code_image.seek(0) 
     bot.send_photo(message.chat.id, qr_code_image)
 
+###########################
+### Morse Code Generator###
+@bot.message_handler(commands=['morsecode'])
+def textaudio(message):
+    bot.reply_to(message,"This will convert your text to morsecode")
+    msg = bot.send_message(message.chat.id,"Enter the text")
+    bot.register_next_step_handler(msg,text_morse_code_converter)
+def text_morse_code_converter(message):
+    text = message.text
+    morse_code = ''
+    for i in text.upper():
+        if i in File_data.morse_dicitonary:
+            morse_code += File_data.morse_dicitonary[i] + ' '
+    bot.send_message(message.chat.id,morse_code)
 ###########################
 
 ############################################################################################################################
