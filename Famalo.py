@@ -12,6 +12,7 @@ from telebot import types
 import os
 import png
 from tabulate import tabulate
+import File_data
 from API_of_adhi import API_key_Famalo,coporate_bs_api_key,API_weather_key #API keys
 
 #bot api
@@ -39,6 +40,11 @@ def send_welcome(message):#message default parameter
 @bot.message_handler(commands=['education'])
 def send_education_menu(message):
     bot.send_message(message.chat.id,"Education MENU")
+    bot.send_message(message.chat.id,"Online Course Recommendator -/onlinecourse")
+    bot.send_message(message.chat.id,"Youtube Course Recommendator -/youtubecourse")
+    bot.send_message(message.chat.id,"Cheat sheets")
+    bot.send_message(message.chat.id,"Github learning Resources")
+    bot.send_message(message.chat.id,"Location of Nearest Libaries")
 
 @bot.message_handler(commands=['calculators'])
 def send_calculator_menu(message):
@@ -82,12 +88,126 @@ def send_fun_menu(message):
 
 ################################################# Education Menu Features##################################################
 
-pass
+### Online Course ###
+@bot.message_handler(commands=['onlinecourse'])
+def onlinecourse_menu(message):
+    keyboard = types.InlineKeyboardMarkup() #defining buttons
+    option1 = types.InlineKeyboardButton("Python", callback_data='Python')
+    option2 = types.InlineKeyboardButton("Java", callback_data='Java')
+    option3 = types.InlineKeyboardButton("Javascript",callback_data='Javascript')
+    option4 = types.InlineKeyboardButton("C/C++",callback_data = 'C')
+    keyboard.add(option1, option2,option3,option4)
+    bot.send_message(message.chat.id,"Select your desired Topic:",reply_markup=keyboard)
 
+# Define the callback query handlers for different topics
+@bot.callback_query_handler(func=lambda call: call.data == 'Python')
+def handle_python(call):
+    keyboard_2 = types.InlineKeyboardMarkup()
+    option2_1 = types.InlineKeyboardButton("Udemy", callback_data='Python_Udemy_youtube')
+    option2_2 = types.InlineKeyboardButton("Coursera", callback_data='Python_Coursera_youtube')
+    keyboard_2.add(option2_1, option2_2)
+    bot.send_message(call.message.chat.id, "Select your desired Platform:", reply_markup=keyboard_2)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'Python_Udemy_youtube')
+def handle_python_udemy(call):
+    random_index = random.randint(0, len(File_data.Online_course_Python_Udemy))
+    bot.send_message(call.message.chat.id, File_data.Online_course_Python_Udemy[random_index])
+
+@bot.callback_query_handler(func=lambda call: call.data == 'Python_Coursera_youtube')
+def handle_python_coursera(call):
+    random_index = random.randint(0, len(File_data.Online_course_Python_Coursera))
+    bot.send_message(call.message.chat.id, File_data.Online_course_Python_Coursera[random_index])
+
+@bot.callback_query_handler(func=lambda call: call.data == 'Java')
+def handle_java(call):
+    keyboard_2 = types.InlineKeyboardMarkup()
+    option2_1 = types.InlineKeyboardButton("Udemy", callback_data='Java_Udemy_youtube')
+    option2_2 = types.InlineKeyboardButton("Coursera", callback_data='Java_Coursera_youtube')
+    keyboard_2.add(option2_1, option2_2)
+    bot.send_message(call.message.chat.id, "Select your desired Platform:", reply_markup=keyboard_2)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'Java_Udemy_youtube')
+def handle_java_udemy(call):
+    random_index = random.randint(0, len(File_data.Online_course_Java_Udemy))
+    bot.send_message(call.message.chat.id, File_data.Online_course_Java_Udemy[random_index])
+
+@bot.callback_query_handler(func=lambda call: call.data == 'Java_Coursera_youtube')
+def handle_java_coursera(call):
+    random_index = random.randint(0, len(File_data.Online_course_Java_Coursera))
+    bot.send_message(call.message.chat.id, File_data.Online_course_Java_Coursera[random_index])
+
+@bot.callback_query_handler(func=lambda call: call.data == 'Javascript')
+def handle_javascript(call):
+    keyboard_2 = types.InlineKeyboardMarkup()
+    option2_1 = types.InlineKeyboardButton("Udemy", callback_data='Javascript_Udemy_youtube')
+    option2_2 = types.InlineKeyboardButton("Coursera", callback_data='Javascript_Coursera_youtube')
+    keyboard_2.add(option2_1, option2_2)
+    bot.send_message(call.message.chat.id, "Select your desired Platform:", reply_markup=keyboard_2)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'Javascript_Udemy_youtube')
+def handle_javascript_udemy(call):
+    random_index = random.randint(0, len(File_data.Online_course_Javascript_Udemy))
+    bot.send_message(call.message.chat.id, File_data.Online_course_Javascript_Udemy[random_index])
+
+@bot.callback_query_handler(func=lambda call: call.data == 'Javascript_Coursera_youtube')
+def handle_javascript_coursera(call):
+    random_index = random.randint(0, len(File_data.Online_course_Javascript_Coursera))
+    bot.send_message(call.message.chat.id, File_data.Online_course_Javascript_Coursera[random_index])
+
+@bot.callback_query_handler(func=lambda call: call.data == 'C')
+def handle_c(call):
+    keyboard_2 = types.InlineKeyboardMarkup()
+    option2_1 = types.InlineKeyboardButton("Udemy", callback_data='C_Udemy_youtube')
+    option2_2 = types.InlineKeyboardButton("Coursera", callback_data='C_Coursera_youtube')
+    keyboard_2.add(option2_1, option2_2)
+    bot.send_message(call.message.chat.id, "Select your desired Platform:", reply_markup=keyboard_2)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'C_Udemy_youtube')
+def handle_c_udemy(call):
+    random_index = random.randint(0, len(File_data.Online_course_C_Udemy))
+    bot.send_message(call.message.chat.id, File_data.Online_course_C_Udemy[random_index])
+
+@bot.callback_query_handler(func=lambda call: call.data == 'C_Coursera_youtube')
+def handle_c_coursera(call):
+    random_index = random.randint(0, len(File_data.Online_course_C_Coursera))
+    bot.send_message(call.message.chat.id, File_data.Online_course_C_Coursera[random_index])
+#############################
+### Youtube_recommendator ###
+@bot.message_handler(commands='youtubecourse')
+def youtubecourse_menu(message):
+    keyboard = types.InlineKeyboardMarkup() #defining buttons
+    option1 = types.InlineKeyboardButton("Python", callback_data='Python_youtube')
+    option2 = types.InlineKeyboardButton("Java", callback_data='Java_youtube')
+    option3 = types.InlineKeyboardButton("Javascript",callback_data='Javascript_youtube')
+    option4 = types.InlineKeyboardButton("C/C++",callback_data = 'C_youtube')
+    keyboard.add(option1,option2,option3,option4)
+    bot.send_message(message.chat.id,"Select your desired Topic:",reply_markup=keyboard)
+
+# Define the callback query handlers for different topics
+@bot.callback_query_handler(func=lambda call: call.data == 'Python_youtube')
+def handle_python_youtube(call):
+    random_index = random.randint(0, len(File_data.Youtube_video_python))
+    bot.send_message(call.message.chat.id, File_data.Youtube_video_python[random_index])
+
+@bot.callback_query_handler(func=lambda call: call.data == 'Java_youtube')
+def handle_java_youtube(call):
+    random_index = random.randint(0, len(File_data.Youtube_video_Java))
+    bot.send_message(call.message.chat.id, File_data.Youtube_video_Java[random_index])
+
+@bot.callback_query_handler(func=lambda call: call.data == 'Javascript_youtube')
+def handle_javascript_youtube(call):
+    random_index = random.randint(0, len(File_data.Youtube_video_Javascript))
+    bot.send_message(call.message.chat.id, File_data.Youtube_video_Javascript[random_index])
+
+@bot.callback_query_handler(func=lambda call: call.data == 'C_youtube')
+def handle_c_youtube(call):
+    random_index = random.randint(0, len(File_data.Youtube_video_C))
+    bot.send_message(call.message.chat.id, File_data.Youtube_video_C[random_index])
+####################
 #############################################################################################################################
 
 ################################################# Calculator Menu Features ##################################################
-
+### Grade Calculator ###
 @bot.message_handler(commands=['gradecalculator'])
 def gradecalculator(message):
     bot.send_message(message.chat.id,"This calculator will tell the external marks required for each grade according to your internal mark")
@@ -154,7 +274,8 @@ def send_output(message,list_with_internal_total_internal):
     table_string = tabulate(data, headers=["Grade","External marks Needed"], tablefmt="grid",colalign=("left", "left"))
     table_html = f"<pre>{table_string}</pre>" #used html for making borders uniform (according to data)
     bot.send_message(message.chat.id, text=table_html, parse_mode="HTML")
-
+###############################
+### Playbackspeed calculator ##
 @bot.message_handler(commands=['playbackspeedcalculator'])
 def playbackspeedcalculator(message):
     bot.send_message(message.chat.id,"So you wanna know is it worth to watch your lecture in fast mode ")
@@ -212,10 +333,11 @@ def calculating_sending_output(speed,message): # final calculation and output
     saved_time = datetime1 - datetime2 # subracting to find saved time
     bot.send_message(message.chat.id,f"Time you can save at {speed} = {saved_time}") #send saved time
     
-
+################################
 ############################################################################################################################
 
 ################################################# Generator Menu Features ##################################################
+### Password generator ###
 @bot.message_handler(commands=['password'])
 def password_generator1(message):
     bot.reply_to(message,"So you decided to bo more secure than a normal user who puts their pet's name as password")
@@ -224,7 +346,8 @@ def password_generator1(message):
     pwo = PasswordGenerator() #calling libary
     pwo1=pwo.generate() # randomly generating password
     bot.send_message(message.chat.id,pwo1)
-
+####################
+### Text to audio ##
 @bot.message_handler(commands=['textaudio'])
 def textaudio(message):
     bot.reply_to(message,"This will convert your text to audio")
@@ -240,7 +363,8 @@ def text_to_audio_processing(message): #processing input of user
         bot.send_audio(message.chat.id, audio_file)
     os.remove("audio.mp3") #delete after sending
 
-    
+#########################
+### QR code Generator ###
 @bot.message_handler(commands=['qrcodegenerator'])
 def qrcodegenerator(message):
     bot.reply_to(message,"Say goodbye to typing long links or text. Say hello to the easy way. Just scan and let the magic unfold")
@@ -256,8 +380,7 @@ def Processing_qrcodegenerator(message): # handling user input
     qr_code_image.seek(0) 
     bot.send_photo(message.chat.id, qr_code_image)
 
-
-
+###########################
 
 ############################################################################################################################
 
@@ -266,6 +389,7 @@ def Processing_qrcodegenerator(message): # handling user input
 
 
 @bot.message_handler(commands=['weather'])
+### Weather ###
 def weather(message):
     #defining Send Location button
     keyboard_markup = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
@@ -313,6 +437,8 @@ def send_output_weather(message,latitude,longitude):
     bot.send_message(message.chat.id, f"Wind Speed: {wind_speed} m/s")
     #forecast data can be added in the future
 
+#################################
+### Random Activity generator ###
 @bot.message_handler(commands=['activity'])
 def activity(message):
     #inline keyboard buttons
@@ -332,61 +458,76 @@ def activity(message):
     bot.send_message(message.chat.id,"So your bored and don't know what to do\nI will help you")
     bot.send_message(message.chat.id, 'Choose a Catergory of Activity:', reply_markup=keyboard) #calling buttons below this message
 
-@bot.callback_query_handler(func=lambda call: True)
-def callback_query_send_response(call):
-    #responses for each button
-    if call.data == 'any':
-        response = requests.get('http://www.boredapi.com/api/activity/')
-        data = response.json()
-        bot.send_message(call.message.chat.id, data['activity'])
-    #generally requesting a different response for different type
-    elif call.data == 'education':
-        type = 'education'
-        response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
-        data = response.json()
-        bot.send_message(call.message.chat.id, data['activity'])
-    elif call.data == 'recreational':
-        type = 'recreational'
-        response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
-        data = response.json()
-        bot.send_message(call.message.chat.id, data['activity'])
-    elif call.data == 'social':
-        type = 'social'
-        response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
-        data = response.json()
-        bot.send_message(call.message.chat.id, data['activity'])
-    elif call.data == 'diy':
-        type = 'diy'
-        response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
-        data = response.json()
-        bot.send_message(call.message.chat.id, data['activity'])
-    elif call.data == 'charity':
-        type = 'charity'
-        response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
-        data = response.json()
-        bot.send_message(call.message.chat.id, data['activity'])
-    elif call.data == 'cooking':
-        type = 'cooking'
-        response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
-        data = response.json()
-        bot.send_message(call.message.chat.id, data['activity'])
-    elif call.data == 'relaxation':
-        type = 'relaxation'
-        response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
-        data = response.json()
-        bot.send_message(call.message.chat.id, data['activity'])
-    elif call.data == 'music':
-        type = 'music'
-        response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
-        data = response.json()
-        bot.send_message(call.message.chat.id, data['activity'])
-    elif call.data == 'busywork':
-        type = 'busywork'
-        response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
-        data = response.json()
-        bot.send_message(call.message.chat.id, data['activity'])
+# Define the callback query handlers for different activity types
+@bot.callback_query_handler(func=lambda call: call.data == 'any')
+def handle_any(call):
+    response = requests.get('http://www.boredapi.com/api/activity/')
+    data = response.json()
+    bot.send_message(call.message.chat.id, data['activity'])
 
+@bot.callback_query_handler(func=lambda call: call.data == 'education')
+def handle_education(call):
+    type = 'education'
+    response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
+    data = response.json()
+    bot.send_message(call.message.chat.id, data['activity'])
 
+@bot.callback_query_handler(func=lambda call: call.data == 'recreational')
+def handle_recreational(call):
+    type = 'recreational'
+    response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
+    data = response.json()
+    bot.send_message(call.message.chat.id, data['activity'])
+
+@bot.callback_query_handler(func=lambda call: call.data == 'social')
+def handle_social(call):
+    type = 'social'
+    response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
+    data = response.json()
+    bot.send_message(call.message.chat.id, data['activity'])
+
+@bot.callback_query_handler(func=lambda call: call.data == 'diy')
+def handle_diy(call):
+    type = 'diy'
+    response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
+    data = response.json()
+    bot.send_message(call.message.chat.id, data['activity'])
+
+@bot.callback_query_handler(func=lambda call: call.data == 'charity')
+def handle_charity(call):
+    type = 'charity'
+    response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
+    data = response.json()
+    bot.send_message(call.message.chat.id, data['activity'])
+
+@bot.callback_query_handler(func=lambda call: call.data == 'cooking')
+def handle_cooking(call):
+    type = 'cooking'
+    response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
+    data = response.json()
+    bot.send_message(call.message.chat.id, data['activity'])
+
+@bot.callback_query_handler(func=lambda call: call.data == 'relaxation')
+def handle_relaxation(call):
+    type = 'relaxation'
+    response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
+    data = response.json()
+    bot.send_message(call.message.chat.id, data['activity'])
+
+@bot.callback_query_handler(func=lambda call: call.data == 'music')
+def handle_music(call):
+    type = 'music'
+    response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
+    data = response.json()
+    bot.send_message(call.message.chat.id, data['activity'])
+
+@bot.callback_query_handler(func=lambda call: call.data == 'busywork')
+def handle_busywork(call):
+    type = 'busywork'
+    response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
+    data = response.json()
+    bot.send_message(call.message.chat.id, data['activity'])
+#################
 
 ############################################################################################################################
 
@@ -405,7 +546,7 @@ pass
 
 
 ################################################# FUN Menu Features ##################################################
-
+### Joke ###
 @bot.message_handler(commands=['joke'])
 def joke(message):
     bot.reply_to(message,"So you want a joke")
@@ -417,7 +558,8 @@ def joke(message):
     #Takes a joke randomly from pyjokes libary
     jokes_text=pyjokes.get_joke("en","all")
     bot.send_message(message.chat.id,jokes_text) #send joke
-
+################
+#### Dice ######
 @bot.message_handler(commands=['dice'])
 def dice(message):
     bot.reply_to(message,"So you don't have a dice with you")
@@ -429,7 +571,8 @@ def dice(message):
     number=random.randint(1,6) # random number from 1-6
     Dice_number=(f"The number is {number}")
     bot.send_message(message.chat.id,Dice_number)
-
+#################
+### Coporatebs ##
 @bot.message_handler(commands=['coporatebs'])
 def coporatebs(message):
     url = "https://sameer-kumar-corporate-bs-generator-v1.p.rapidapi.com/" #url of api
@@ -441,7 +584,8 @@ def coporatebs(message):
     bot.send_message(message.chat.id,"So you wanna here some Coporate 🐂💩\nWhich makes no sense\nBut sounds complex🤔😵‍💫")
     bot.send_message(message.chat.id,phrase['phrase']) # sending phrase
     bot.send_sticker(message.chat.id,"https://media.tenor.com/bkbcsCcDMJIAAAAC/try-to-figure-it-out-emma.gif")
-
+######################
+### Superhero ########
 @bot.message_handler(commands=['super'])
 def super(message):
     bot.send_message(message.chat.id,"So you wanna know the deatils of your favourite Superhero/Villian")
@@ -485,7 +629,8 @@ def processing_sending_deatils(message):
         return result
     #sending string
     bot.send_message(message.chat.id,get_nested_dictionary_string(data))
-
+ ##########################
+ #### Meme generator ######
 @bot.message_handler(commands=['meme'])
 def meme(message):
     bot.reply_to(message,"Here is a random meme for you")
@@ -499,7 +644,7 @@ def meme(message):
     else:
         # else photo
         bot.send_photo(message.chat.id,meme_url)
-
+###########################
 ######################################################################################################################
 
 @bot.message_handler(commands=['contact'])
