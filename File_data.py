@@ -145,3 +145,43 @@ morse_dicitonary = {
     '&': '.-...', ':': '---...', ';': '-.-.-.', '=': '-...-', '+': '.-.-.', '-': '-....-', '_': '..--.-', '"': '.-..-.',
     '$': '...-..-', '@': '.--.-.', ' ': '/'
 }
+
+## Syllabus Finder###
+Data_science_bvoc_data_science = "https://stthomas.ac.in/wp-content/uploads/2021/12/B.Voc-Data-Science.pdf"
+botany_bsc_botany = "https://stthomas.ac.in/wp-content/uploads/2021/12/BSc-Botany.pdf"
+botany_msc_botany = "https://stthomas.ac.in/wp-content/uploads/2021/12/M-Sc-botany.pdf"
+chemistry_bsc_chem = "https://stthomas.ac.in/wp-content/uploads/2021/12/BSc-Chem.pdf"
+chemistry_msc_chem = "https://stthomas.ac.in/wp-content/uploads/2021/12/MSc-Chemistry.pdf"
+commerce_mcom = "https://stthomas.ac.in/wp-content/uploads/2021/12/MCom.pdf"
+commerce_bcom_finance = "https://stthomas.ac.in/wp-content/uploads/2021/12/BCom-Finance.pdf"
+commerce_bcom_banking = "https://stthomas.ac.in/wp-content/uploads/2021/12/BCom-Banking.pdf"
+commerce_sf_bcom ="https://stthomas.ac.in/wp-content/uploads/2020/08/B-Com1.pdf"
+computer_application_bca = "https://stthomas.ac.in/wp-content/uploads/2021/12/BCA.pdf"
+computer_application_msc_cs = "https://stthomas.ac.in/wp-content/uploads/2021/12/MSc-Computer-Science.pdf"
+computer_science_bsc_cs = "https://stthomas.ac.in/wp-content/uploads/2022/01/Computer-Science-Final.pdf"
+computer_science_msc_cs = "https://stthomas.ac.in/wp-content/uploads/2021/12/MSc-Computer-Science.pdf"
+criminology_ba_criminology = "https://stthomas.ac.in/wp-content/uploads/2021/12/Criminology.pdf"
+economics_ba_economics = "https://stthomas.ac.in/wp-content/uploads/2021/12/BA-Economics.pdf"
+economics_ma_economics = "https://stthomas.ac.in/wp-content/uploads/2021/12/MA-Economics-1.pdf"
+electronics_bsc_electronics = "https://stthomas.ac.in/wp-content/uploads/2021/12/BSc-Electronics.pdf"
+electronics_msc_electronics= "https://stthomas.ac.in/wp-content/uploads/2021/12/MSC-Electronics.pdf"
+english_ba_english = "https://stthomas.ac.in/wp-content/uploads/2021/12/BA-English-.pdf"
+english_ba_double_main = "https://stthomas.ac.in/wp-content/uploads/2021/12/BA-Double-Main.pdf"
+english_ma_english = "https://stthomas.ac.in/wp-content/uploads/2021/12/MA-English.pdf"
+FS_bvoc_forensic_science = "https://stthomas.ac.in/wp-content/uploads/2021/12/Bvoc-Forensic-Science.pdf"
+MS_bba = "https://stthomas.ac.in/wp-content/uploads/2021/12/BBA.pdf"
+Maths_bsc_mathematics = "https://stthomas.ac.in/wp-content/uploads/2021/12/BSc-Mathematics.pdf"
+Maths_msc_mathematics = "https://stthomas.ac.in/wp-content/uploads/2021/12/MSc-Mathematics-.pdf"
+Media_ba_visual_communication = "https://stthomas.ac.in/wp-content/uploads/2021/12/BA-Visual-Communication.pdf"
+Media_ba_multimedia = "https://stthomas.ac.in/wp-content/uploads/2021/12/BA-Multimedia.pdf"
+Media_ma_visual_communication = "https://stthomas.ac.in/wp-content/uploads/2021/12/MA-Visual-Communication.pdf"
+Physics_bsc_physics = "https://stthomas.ac.in/wp-content/uploads/2021/12/BSc-Physics.pdf"
+Physics_msc_physics = "https://stthomas.ac.in/wp-content/uploads/2021/12/M.Sc_.-Physics.pdf"
+Psychology_integrated_msc_psychology = "https://stthomas.ac.in/wp-content/uploads/2022/01/Integrated-MSc-Psychology.pdf"
+SW_msw = "https://stthomas.ac.in/wp-content/uploads/2021/12/MSW.pdf"
+Stati_bsc_statistics = "https://stthomas.ac.in/wp-content/uploads/2021/12/BSc-Statistics-Updated.pdf"
+Stati_msc_statistics = "https://stthomas.ac.in/wp-content/uploads/2021/12/MSc-Statistics.pdf"
+Zoology_bsc_zoology = "https://stthomas.ac.in/wp-content/uploads/2021/12/BSc-Zoology.pdf"
+Zoology_msc_zoology = "https://stthomas.ac.in/wp-content/uploads/2021/12/Msc-Zoology.pdf"
+
+#####################

@@ -70,6 +70,7 @@ def send_real_life_menu(message):
 @bot.message_handler(commands=['stthomascollege'])
 def send_st_thomas_college_menu(message):
     bot.send_message(message.chat.id,"ST Thomas College specific MENU")
+    bot.send_message(message.chat.id,"Syllabus Sender -/syllabus")
 
 @bot.message_handler(commands=['system'])
 def send_system_menu(message):
@@ -590,8 +591,134 @@ def handle_busywork(call):
 
 ################################################# St thomas college Specific  Menu Features##################################################
 
-pass
+@bot.message_handler(commands=['syllabus'])
+def Department_menu(message):
+    keyboard = types.InlineKeyboardMarkup()
+    # Add the department buttons
+    button1 = types.InlineKeyboardButton(text='Data Science', callback_data='data_science')
+    button2 = types.InlineKeyboardButton(text='Botany', callback_data='botany')
+    button3 = types.InlineKeyboardButton(text='Chemistry', callback_data='chemistry')
+    button4 = types.InlineKeyboardButton(text='Commerce', callback_data='commerce')
+    button5 = types.InlineKeyboardButton(text='Computer Application', callback_data='computer_application')
+    button6 = types.InlineKeyboardButton(text='Computer Science', callback_data='computer_science')
+    button7 = types.InlineKeyboardButton(text='Criminology', callback_data='criminology')
+    button8 = types.InlineKeyboardButton(text='Economics', callback_data='economics')
+    button9 = types.InlineKeyboardButton(text='Electronics', callback_data='electronics')
+    button10 = types.InlineKeyboardButton(text='English', callback_data='english')
+    button11 = types.InlineKeyboardButton(text='Forensic Science', callback_data='forensic_science')
+    button12 = types.InlineKeyboardButton(text='BBA', callback_data='bba')
+    button13 = types.InlineKeyboardButton(text='Mathematics', callback_data='mathematics')
+    button14 = types.InlineKeyboardButton(text='Media', callback_data='media')
+    button15 = types.InlineKeyboardButton(text='Physics', callback_data='physics')
+    button16 = types.InlineKeyboardButton(text='Psychology', callback_data='psychology')
+    button17 = types.InlineKeyboardButton(text='Social Work', callback_data='social_work')
+    button18 = types.InlineKeyboardButton(text='Statistics', callback_data='statistics')
+    button19 = types.InlineKeyboardButton(text='Zoology', callback_data='zoology')
+    button20 = types.InlineKeyboardButton(text='Commerce SF', callback_data='commercesf')
 
+    # Add the buttons to the keyboard
+    keyboard.add(button1, button2, button3, button4, button5, button6, button7, button8, button9,
+                 button10, button11, button12, button13, button14, button15, button16, button17,
+                 button18, button19,button20)
+    bot.send_message(message.chat.id, 'Please select a department:', reply_markup=keyboard)
+
+# Callback query handlers for each button
+@bot.callback_query_handler(func=lambda call: call.data == 'data_science')
+def data_science_handler(call):
+    bot.send_document(call.message.chat.id, File_data.Data_science_bvoc_data_science)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'botany')
+def botany_handler(call):
+    bot.send_document(call.message.chat.id, File_data.botany_bsc_botany)
+    bot.send_document(call.message.chat.id,File_data.botany_msc_botany)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'chemistry')
+def chemistry_handler(call):
+    bot.send_document(call.message.chat.id,File_data.chemistry_bsc_chem)
+    bot.send_document(call.message.chat.id,File_data.chemistry_msc_chem)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'commerce')
+def commerce_handler(call):
+    bot.send_document(call.message.chat.id,File_data.commerce_bcom_banking)
+    bot.send_document(call.message.chat.id,File_data.commerce_bcom_finance)
+    bot.send_document(call.message.chat.id,File_data.commerce_mcom)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'commercesf')
+def computer_application_handler(call):
+    bot.send_document(call.message.chat.id,File_data.commerce_sf_bcom)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'computer_application')
+def computer_application_handler(call):
+    bot.send_document(call.message.chat.id,File_data.computer_application_bca)
+    bot.send_document(call.message.chat.id,File_data.computer_application_msc_cs)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'computer_science')
+def computer_science_handler(call):
+    bot.send_document(call.message.chat.id,File_data.computer_science_bsc_cs)
+    bot.send_document(call.message.chat.id,File_data.computer_science_msc_cs)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'criminology')
+def criminology_handler(call):
+    bot.send_document(call.message.chat.id,File_data.criminology_ba_criminology)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'economics')
+def economics_handler(call):
+    bot.send_document(call.message.chat.id,File_data.economics_ba_economics)
+    bot.send_document(call.message.chat.id,File_data.economics_ma_economics)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'electronics')
+def electronics_handler(call):
+    bot.send_document(call.message.chat.id,File_data.electronics_bsc_electronics)
+    bot.send_document(call.message.chat.id,File_data.electronics_msc_electronics)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'english')
+def english_handler(call):
+    bot.send_document(call.message.chat.id,File_data.english_ba_english)
+    bot.send_document(call.message.chat.id,File_data.english_ba_double_main)
+    bot.send_document(call.message.chat.id,File_data.english_ma_english)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'forensic_science')
+def forensic_science_handler(call):
+    bot.send_document(call.message.chat.id,File_data.FS_bvoc_forensic_science)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'bba')
+def bba_handler(call):
+    bot.send_document(call.message.chat.id,File_data.MS_bba)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'mathematics')
+def mathematics_handler(call):
+    bot.send_document(call.message.chat.id,File_data.Maths_bsc_mathematics)
+    bot.send_document(call.message.chat.id,File_data.Maths_msc_mathematics)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'media')
+def media_handler(call):
+    bot.send_document(call.message.chat.id,File_data.Media_ba_multimedia)
+    bot.send_document(call.message.chat.id,File_data.Media_ba_visual_communication)
+    bot.send_document(call.message.chat.id,File_data.Media_ma_visual_communication)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'physics')
+def physics_handler(call):
+    bot.send_document(call.message.chat.id,File_data.Physics_bsc_physics)
+    bot.send_document(call.message.chat.id,File_data.Physics_msc_physics)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'psychology')
+def handle_psychology(call):
+    bot.send_document(call.message.chat.id,File_data.Psychology_integrated_msc_psychology)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'social_work')
+def handle_social_work(call):
+    bot.send_document(call.message.chat.id,File_data.SW_msw)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'statistics')
+def handle_statistics(call):
+    bot.send_document(call.message.chat.id,File_data.Stati_bsc_statistics)
+    bot.send_document(call.message.chat.id,File_data.Stati_msc_statistics)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'zoology')
+def handle_zoology(call):
+    bot.send_document(call.message.chat.id,File_data.Zoology_bsc_zoology)
+    bot.send_document(call.message.chat.id,File_data.Zoology_msc_zoology)
+#############################
 ################################################################################################################################
 
 
