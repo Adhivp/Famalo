@@ -42,7 +42,7 @@ def send_education_menu(message):
     bot.send_message(message.chat.id,"Education MENU")
     bot.send_message(message.chat.id,"Online Course Recommendator -/onlinecourse")
     bot.send_message(message.chat.id,"Youtube Course Recommendator -/youtubecourse")
-    bot.send_message(message.chat.id,"Cheat sheets")
+    bot.send_message(message.chat.id,"Cheat sheets -/cheatsheet")
     bot.send_message(message.chat.id,"Github learning Resources")
     bot.send_message(message.chat.id,"Location of Nearest Libaries")
 
@@ -92,82 +92,82 @@ def send_fun_menu(message):
 @bot.message_handler(commands=['onlinecourse'])
 def onlinecourse_menu(message):
     keyboard = types.InlineKeyboardMarkup() #defining buttons
-    option1 = types.InlineKeyboardButton("Python", callback_data='Python')
-    option2 = types.InlineKeyboardButton("Java", callback_data='Java')
-    option3 = types.InlineKeyboardButton("Javascript",callback_data='Javascript')
-    option4 = types.InlineKeyboardButton("C/C++",callback_data = 'C')
+    option1 = types.InlineKeyboardButton("Python", callback_data='Python_online')
+    option2 = types.InlineKeyboardButton("Java", callback_data='Java_online')
+    option3 = types.InlineKeyboardButton("Javascript",callback_data='Javascript_online')
+    option4 = types.InlineKeyboardButton("C/C++",callback_data = 'C_online')
     keyboard.add(option1, option2,option3,option4)
     bot.send_message(message.chat.id,"Select your desired Topic:",reply_markup=keyboard)
 
 # Define the callback query handlers for different topics
-@bot.callback_query_handler(func=lambda call: call.data == 'Python')
+@bot.callback_query_handler(func=lambda call: call.data == 'Python_online')
 def handle_python(call):
     keyboard_2 = types.InlineKeyboardMarkup()
-    option2_1 = types.InlineKeyboardButton("Udemy", callback_data='Python_Udemy_youtube')
-    option2_2 = types.InlineKeyboardButton("Coursera", callback_data='Python_Coursera_youtube')
+    option2_1 = types.InlineKeyboardButton("Udemy", callback_data='Python_Udemy_online')
+    option2_2 = types.InlineKeyboardButton("Coursera", callback_data='Python_Coursera_online')
     keyboard_2.add(option2_1, option2_2)
     bot.send_message(call.message.chat.id, "Select your desired Platform:", reply_markup=keyboard_2)
 
-@bot.callback_query_handler(func=lambda call: call.data == 'Python_Udemy_youtube')
+@bot.callback_query_handler(func=lambda call: call.data == 'Python_Udemy_online')
 def handle_python_udemy(call):
     random_index = random.randint(0, len(File_data.Online_course_Python_Udemy))
     bot.send_message(call.message.chat.id, File_data.Online_course_Python_Udemy[random_index])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'Python_Coursera_youtube')
+@bot.callback_query_handler(func=lambda call: call.data == 'Python_Coursera_online')
 def handle_python_coursera(call):
     random_index = random.randint(0, len(File_data.Online_course_Python_Coursera))
     bot.send_message(call.message.chat.id, File_data.Online_course_Python_Coursera[random_index])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'Java')
+@bot.callback_query_handler(func=lambda call: call.data == 'Java_online')
 def handle_java(call):
     keyboard_2 = types.InlineKeyboardMarkup()
-    option2_1 = types.InlineKeyboardButton("Udemy", callback_data='Java_Udemy_youtube')
-    option2_2 = types.InlineKeyboardButton("Coursera", callback_data='Java_Coursera_youtube')
+    option2_1 = types.InlineKeyboardButton("Udemy", callback_data='Java_Udemy_online')
+    option2_2 = types.InlineKeyboardButton("Coursera", callback_data='Java_Coursera_online')
     keyboard_2.add(option2_1, option2_2)
     bot.send_message(call.message.chat.id, "Select your desired Platform:", reply_markup=keyboard_2)
 
-@bot.callback_query_handler(func=lambda call: call.data == 'Java_Udemy_youtube')
+@bot.callback_query_handler(func=lambda call: call.data == 'Java_Udemy_online')
 def handle_java_udemy(call):
     random_index = random.randint(0, len(File_data.Online_course_Java_Udemy))
     bot.send_message(call.message.chat.id, File_data.Online_course_Java_Udemy[random_index])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'Java_Coursera_youtube')
+@bot.callback_query_handler(func=lambda call: call.data == 'Java_Coursera_online')
 def handle_java_coursera(call):
     random_index = random.randint(0, len(File_data.Online_course_Java_Coursera))
     bot.send_message(call.message.chat.id, File_data.Online_course_Java_Coursera[random_index])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'Javascript')
+@bot.callback_query_handler(func=lambda call: call.data == 'Javascript_online')
 def handle_javascript(call):
     keyboard_2 = types.InlineKeyboardMarkup()
-    option2_1 = types.InlineKeyboardButton("Udemy", callback_data='Javascript_Udemy_youtube')
-    option2_2 = types.InlineKeyboardButton("Coursera", callback_data='Javascript_Coursera_youtube')
+    option2_1 = types.InlineKeyboardButton("Udemy", callback_data='Javascript_Udemy_online')
+    option2_2 = types.InlineKeyboardButton("Coursera", callback_data='Javascript_Coursera_online')
     keyboard_2.add(option2_1, option2_2)
     bot.send_message(call.message.chat.id, "Select your desired Platform:", reply_markup=keyboard_2)
 
-@bot.callback_query_handler(func=lambda call: call.data == 'Javascript_Udemy_youtube')
+@bot.callback_query_handler(func=lambda call: call.data == 'Javascript_Udemy_online')
 def handle_javascript_udemy(call):
     random_index = random.randint(0, len(File_data.Online_course_Javascript_Udemy))
     bot.send_message(call.message.chat.id, File_data.Online_course_Javascript_Udemy[random_index])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'Javascript_Coursera_youtube')
+@bot.callback_query_handler(func=lambda call: call.data == 'Javascript_Coursera_online')
 def handle_javascript_coursera(call):
     random_index = random.randint(0, len(File_data.Online_course_Javascript_Coursera))
     bot.send_message(call.message.chat.id, File_data.Online_course_Javascript_Coursera[random_index])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'C')
+@bot.callback_query_handler(func=lambda call: call.data == 'C_online')
 def handle_c(call):
     keyboard_2 = types.InlineKeyboardMarkup()
-    option2_1 = types.InlineKeyboardButton("Udemy", callback_data='C_Udemy_youtube')
-    option2_2 = types.InlineKeyboardButton("Coursera", callback_data='C_Coursera_youtube')
+    option2_1 = types.InlineKeyboardButton("Udemy", callback_data='C_Udemy_online')
+    option2_2 = types.InlineKeyboardButton("Coursera", callback_data='C_Coursera_online')
     keyboard_2.add(option2_1, option2_2)
     bot.send_message(call.message.chat.id, "Select your desired Platform:", reply_markup=keyboard_2)
 
-@bot.callback_query_handler(func=lambda call: call.data == 'C_Udemy_youtube')
+@bot.callback_query_handler(func=lambda call: call.data == 'C_Udemy_online')
 def handle_c_udemy(call):
     random_index = random.randint(0, len(File_data.Online_course_C_Udemy))
     bot.send_message(call.message.chat.id, File_data.Online_course_C_Udemy[random_index])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'C_Coursera_youtube')
+@bot.callback_query_handler(func=lambda call: call.data == 'C_Coursera_online')
 def handle_c_coursera(call):
     random_index = random.randint(0, len(File_data.Online_course_C_Coursera))
     bot.send_message(call.message.chat.id, File_data.Online_course_C_Coursera[random_index])
@@ -204,6 +204,38 @@ def handle_c_youtube(call):
     random_index = random.randint(0, len(File_data.Youtube_video_C))
     bot.send_message(call.message.chat.id, File_data.Youtube_video_C[random_index])
 ####################
+### Cheatsheets ####
+@bot.message_handler(commands=['cheatsheet'])
+def cheatsheet_menu(message):
+    keyboard = types.InlineKeyboardMarkup() #defining buttons
+    option1 = types.InlineKeyboardButton("Python", callback_data='Python_cheatsheet')
+    option2 = types.InlineKeyboardButton("Java", callback_data='Java_cheatsheet')
+    option3 = types.InlineKeyboardButton("Javascript",callback_data='Javascript_cheatsheet')
+    option4 = types.InlineKeyboardButton("C/C++",callback_data = 'C_cheatsheet')
+    option5 = types.InlineKeyboardButton("Git",callback_data = 'Git_cheatsheet')
+    keyboard.add(option1, option2,option3,option4,option5)
+    bot.send_message(message.chat.id,"Select your desired Topic:",reply_markup=keyboard)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'Python_cheatsheet')
+def handle_python_cheatsheet(call):
+    bot.send_document(call.message.chat.id,File_data.Cheat_sheet_Python)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'Java_cheatsheet')
+def handle_java_cheatsheet(call):
+    bot.send_document(call.message.chat.id,File_data.Cheat_sheet_Java)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'Javascript_cheatsheet')
+def handle_javascript_cheatsheet(call):
+    bot.send_document(call.message.chat.id,File_data.Cheat_sheet_Javascript)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'C_cheatsheet')
+def handle_c_cheatsheet(call):
+    bot.send_document(call.message.chat.id,File_data.Cheat_sheet_Cpp)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'Git_cheatsheet')
+def handle_git_cheatsheet(call):
+    bot.send_document(call.message.chat.id,File_data.Cheat_sheet_Git)
+##############
 #############################################################################################################################
 
 ################################################# Calculator Menu Features ##################################################

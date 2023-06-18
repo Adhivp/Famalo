@@ -129,3 +129,9 @@ Youtube_video_C = ("https://www.youtube.com/watch?v=z9bZufPHFLU&list=PLfqMhTWNBT
     "https://www.youtube.com/watch?v=iOfUlcUy0as&pp=ygUPYysrIGZ1bGwgY291cnNl",
     "https://www.youtube.com/watch?v=FpfHmAkRVK4&pp=ygUPYysrIGZ1bGwgY291cnNl",
     "https://www.youtube.com/watch?v=bL-o2xBENY0&list=PLxgZQoSe9cg0df_GxVjz3DD_Gck5tMXAd")
+
+Cheat_sheet_Python = "https://cheatography.com/davechild/cheat-sheets/python/pdf/"
+Cheat_sheet_Java = "https://cheatography.com/sschaub/cheat-sheets/java-fundamentals/pdf/"
+Cheat_sheet_Javascript = "https://cheatography.com/pyro19d/cheat-sheets/javascript/pdf/"
+Cheat_sheet_Cpp = "https://cheatography.com/pmg/cheat-sheets/c/pdf/" 
+Cheat_sheet_Git = "https://cheatography.com/samcollett/cheat-sheets/git/pdf/"
