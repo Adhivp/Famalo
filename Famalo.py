@@ -43,7 +43,7 @@ def send_education_menu(message):
     bot.send_message(message.chat.id,"Online Course Recommendator -/onlinecourse")
     bot.send_message(message.chat.id,"Youtube Course Recommendator -/youtubecourse")
     bot.send_message(message.chat.id,"Cheat sheets -/cheatsheet")
-    bot.send_message(message.chat.id,"Github learning Resources")
+    bot.send_message(message.chat.id,"Github learning Resources -/githublearn")
     bot.send_message(message.chat.id,"Location of Nearest Libaries")
 
 @bot.message_handler(commands=['calculators'])
@@ -236,6 +236,17 @@ def handle_c_cheatsheet(call):
 def handle_git_cheatsheet(call):
     bot.send_document(call.message.chat.id,File_data.Cheat_sheet_Git)
 ##############
+## Github learning Resources ###
+@bot.message_handler(commands=['githublearn'])
+def github_learn_send_links(message):
+    bot.send_message(message.chat.id,"Top Github learning Resources")
+    bot.send_message(message.chat.id,"Learn ML in 100days\nhttps://github.com/Avik-Jain/100-Days-Of-ML-Code")
+    bot.send_message(message.chat.id,"Developer Roadmaps\nhttps://github.com/kamranahmedse/developer-roadmap")
+    bot.send_message(message.chat.id,"The Algorithms\nhttps://github.com/TheAlgorithms")
+    bot.send_message(message.chat.id,"Ebooks Foundation\nhttps://github.com/EbookFoundation")
+    bot.send_message(message.chat.id,"Public APIs\nhttps://github.com/public-apis/public-apis")
+############################
+
 #############################################################################################################################
 
 ################################################# Calculator Menu Features ##################################################
