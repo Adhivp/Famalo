@@ -76,6 +76,7 @@ def send_st_thomas_college_menu(message):
 def send_system_menu(message):
     bot.send_message(message.chat.id,"System-based MENU")
     bot.send_message(message.chat.id,"Linux distro Recommendator -/linuxdistro")
+    bot.send_message(message.chat.id,"Linux command pdf - /linuxcommandpdf")
 
 @bot.message_handler(commands=['fun'])
 def send_fun_menu(message):
@@ -729,7 +730,7 @@ def handle_zoology(call):
 def linux_distro_reccomendator_menu(message):
     keyboard = types.InlineKeyboardMarkup()
 
-    # Define inline buttons
+    # Defining inline buttons
     button1 = types.InlineKeyboardButton(text='Beginners', callback_data='beginners')
     button2 = types.InlineKeyboardButton(text='Gamers', callback_data='gamers')
     button3 = types.InlineKeyboardButton(text='Professional Use', callback_data='professional_use')
@@ -768,6 +769,11 @@ def handle_hackers(call):
 def handle_developers(call):
     bot.send_message(call.message.chat.id, 'Top linux Distro for Developers')
     bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_developers)
+##############################
+### Linux commands pdf #######
+@bot.message_handler(commands=['linuxcommandpdf'])
+def send_linux_commands_pdf(message):
+    bot.send_document(message.chat.id,File_data.linux_commands_pdf)
 ##############################
 ######################################################################################################################
 

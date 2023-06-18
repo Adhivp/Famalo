@@ -208,4 +208,6 @@ linux_distro_recomendator_low_spec_system = '''1. Tiny Core
 16. Q4OS'''
 linux_distro_recomendator_hackers = "1. Kali Linux\n2. BackBox\n3. ParrotOS\n4. BlackArch\n5. Samurai Web Testing Framework\n6. Pentoo Linux\n7. CAINE\n8. Network Security Toolkit\n9. Fedora Security Spin\n10. ArchStrike"
 linux_distro_recomendator_developers = "1. Manjaro\n2. Ubuntu\n3. Pop!_OS\n4. Debian\n5. openSUSE\n6. Arch Linux\n7. Fedora Workstation\n8. Kali Linux\n9. Raspberry Pi OS\n10. Solus OS"
-
+#######################################
+## linux commands pdf #############
+linux_commands_pdf = "https://cheatography.com/davechild/cheat-sheets/linux-command-line/pdf/"
