@@ -102,78 +102,67 @@ def onlinecourse_menu(message):
     keyboard.add(option1, option2,option3,option4)
     bot.send_message(message.chat.id,"Select your desired Topic:",reply_markup=keyboard)
 
-# Define the callback query handlers for different topics
-@bot.callback_query_handler(func=lambda call: call.data == 'Python_online')
-def handle_python(call):
-    keyboard_2 = types.InlineKeyboardMarkup()
-    option2_1 = types.InlineKeyboardButton("Udemy", callback_data='Python_Udemy_online')
-    option2_2 = types.InlineKeyboardButton("Coursera", callback_data='Python_Coursera_online')
-    keyboard_2.add(option2_1, option2_2)
-    bot.send_message(call.message.chat.id, "Select your desired Platform:", reply_markup=keyboard_2)
+@bot.callback_query_handler(func=lambda call: call.data.endswith('_online'))
+def handle_onlinecourse_buttons(call):
+    if call.data == 'Python_online':
+        keyboard_2 = types.InlineKeyboardMarkup()
+        option2_1 = types.InlineKeyboardButton("Udemy", callback_data='Python_Udemy_online')
+        option2_2 = types.InlineKeyboardButton("Coursera", callback_data='Python_Coursera_online')
+        keyboard_2.add(option2_1, option2_2)
+        bot.send_message(call.message.chat.id, "Select your desired Platform:", reply_markup=keyboard_2)
 
-@bot.callback_query_handler(func=lambda call: call.data == 'Python_Udemy_online')
-def handle_python_udemy(call):
-    random_index = random.randint(0, len(File_data.Online_course_Python_Udemy))
-    bot.send_message(call.message.chat.id, File_data.Online_course_Python_Udemy[random_index])
+    elif call.data == 'Python_Udemy_online':
+        random_index = random.randint(0, len(File_data.Online_course_Python_Udemy) - 1 )
+        bot.send_message(call.message.chat.id, File_data.Online_course_Python_Udemy[random_index])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'Python_Coursera_online')
-def handle_python_coursera(call):
-    random_index = random.randint(0, len(File_data.Online_course_Python_Coursera))
-    bot.send_message(call.message.chat.id, File_data.Online_course_Python_Coursera[random_index])
+    elif call.data == 'Python_Coursera_online':
+        random_index = random.randint(0, len(File_data.Online_course_Python_Coursera) - 1 )
+        bot.send_message(call.message.chat.id, File_data.Online_course_Python_Coursera[random_index])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'Java_online')
-def handle_java(call):
-    keyboard_2 = types.InlineKeyboardMarkup()
-    option2_1 = types.InlineKeyboardButton("Udemy", callback_data='Java_Udemy_online')
-    option2_2 = types.InlineKeyboardButton("Coursera", callback_data='Java_Coursera_online')
-    keyboard_2.add(option2_1, option2_2)
-    bot.send_message(call.message.chat.id, "Select your desired Platform:", reply_markup=keyboard_2)
+    elif call.data == 'Java_online':
+        keyboard_2 = types.InlineKeyboardMarkup()
+        option2_1 = types.InlineKeyboardButton("Udemy", callback_data='Java_Udemy_online')
+        option2_2 = types.InlineKeyboardButton("Coursera", callback_data='Java_Coursera_online')
+        keyboard_2.add(option2_1, option2_2)
+        bot.send_message(call.message.chat.id, "Select your desired Platform:", reply_markup=keyboard_2)
 
-@bot.callback_query_handler(func=lambda call: call.data == 'Java_Udemy_online')
-def handle_java_udemy(call):
-    random_index = random.randint(0, len(File_data.Online_course_Java_Udemy))
-    bot.send_message(call.message.chat.id, File_data.Online_course_Java_Udemy[random_index])
+    elif call.data == 'Java_Udemy_online':
+        random_index = random.randint(0, len(File_data.Online_course_Java_Udemy) - 1 )
+        bot.send_message(call.message.chat.id, File_data.Online_course_Java_Udemy[random_index])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'Java_Coursera_online')
-def handle_java_coursera(call):
-    random_index = random.randint(0, len(File_data.Online_course_Java_Coursera))
-    bot.send_message(call.message.chat.id, File_data.Online_course_Java_Coursera[random_index])
+    elif call.data == 'Java_Coursera_online':
+        random_index = random.randint(0, len(File_data.Online_course_Java_Coursera) - 1 )
+        bot.send_message(call.message.chat.id, File_data.Online_course_Java_Coursera[random_index])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'Javascript_online')
-def handle_javascript(call):
-    keyboard_2 = types.InlineKeyboardMarkup()
-    option2_1 = types.InlineKeyboardButton("Udemy", callback_data='Javascript_Udemy_online')
-    option2_2 = types.InlineKeyboardButton("Coursera", callback_data='Javascript_Coursera_online')
-    keyboard_2.add(option2_1, option2_2)
-    bot.send_message(call.message.chat.id, "Select your desired Platform:", reply_markup=keyboard_2)
+    elif call.data == 'Javascript_online':
+        keyboard_2 = types.InlineKeyboardMarkup()
+        option2_1 = types.InlineKeyboardButton("Udemy", callback_data='Javascript_Udemy_online')
+        option2_2 = types.InlineKeyboardButton("Coursera", callback_data='Javascript_Coursera_online')
+        keyboard_2.add(option2_1, option2_2)
+        bot.send_message(call.message.chat.id, "Select your desired Platform:", reply_markup=keyboard_2)
 
-@bot.callback_query_handler(func=lambda call: call.data == 'Javascript_Udemy_online')
-def handle_javascript_udemy(call):
-    random_index = random.randint(0, len(File_data.Online_course_Javascript_Udemy))
-    bot.send_message(call.message.chat.id, File_data.Online_course_Javascript_Udemy[random_index])
+    elif call.data == 'Javascript_Udemy_online':
+        random_index = random.randint(0, len(File_data.Online_course_Javascript_Udemy) - 1 )
+        bot.send_message(call.message.chat.id, File_data.Online_course_Javascript_Udemy[random_index])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'Javascript_Coursera_online')
-def handle_javascript_coursera(call):
-    random_index = random.randint(0, len(File_data.Online_course_Javascript_Coursera))
-    bot.send_message(call.message.chat.id, File_data.Online_course_Javascript_Coursera[random_index])
+    elif call.data == 'Javascript_Coursera_online':
+        random_index = random.randint(0, len(File_data.Online_course_Javascript_Coursera) - 1 )
+        bot.send_message(call.message.chat.id, File_data.Online_course_Javascript_Coursera[random_index])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'C_online')
-def handle_c(call):
-    keyboard_2 = types.InlineKeyboardMarkup()
-    option2_1 = types.InlineKeyboardButton("Udemy", callback_data='C_Udemy_online')
-    option2_2 = types.InlineKeyboardButton("Coursera", callback_data='C_Coursera_online')
-    keyboard_2.add(option2_1, option2_2)
-    bot.send_message(call.message.chat.id, "Select your desired Platform:", reply_markup=keyboard_2)
+    elif call.data == 'C_online':
+        keyboard_2 = types.InlineKeyboardMarkup()
+        option2_1 = types.InlineKeyboardButton("Udemy", callback_data='C_Udemy_online')
+        option2_2 = types.InlineKeyboardButton("Coursera", callback_data='C_Coursera_online')
+        keyboard_2.add(option2_1, option2_2)
+        bot.send_message(call.message.chat.id, "Select your desired Platform:", reply_markup=keyboard_2)
 
-@bot.callback_query_handler(func=lambda call: call.data == 'C_Udemy_online')
-def handle_c_udemy(call):
-    random_index = random.randint(0, len(File_data.Online_course_C_Udemy))
-    bot.send_message(call.message.chat.id, File_data.Online_course_C_Udemy[random_index])
+    elif call.data == 'C_Udemy_online':
+        random_index = random.randint(0, len(File_data.Online_course_C_Udemy) - 1 )
+        bot.send_message(call.message.chat.id, File_data.Online_course_C_Udemy[random_index])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'C_Coursera_online')
-def handle_c_coursera(call):
-    random_index = random.randint(0, len(File_data.Online_course_C_Coursera))
-    bot.send_message(call.message.chat.id, File_data.Online_course_C_Coursera[random_index])
+    elif call.data == 'C_Coursera_online':
+        random_index = random.randint(0, len(File_data.Online_course_C_Coursera) - 1 )
+        bot.send_message(call.message.chat.id, File_data.Online_course_C_Coursera[random_index])
 #############################
 ### Youtube_recommendator ###
 @bot.message_handler(commands='youtubecourse')
@@ -187,25 +176,23 @@ def youtubecourse_menu(message):
     bot.send_message(message.chat.id,"Select your desired Topic:",reply_markup=keyboard)
 
 # Define the callback query handlers for different topics
-@bot.callback_query_handler(func=lambda call: call.data == 'Python_youtube')
-def handle_python_youtube(call):
-    random_index = random.randint(0, len(File_data.Youtube_video_python))
-    bot.send_message(call.message.chat.id, File_data.Youtube_video_python[random_index])
+@bot.callback_query_handler(func=lambda call: call.data.endswith('_youtube'))
+def handle_youtubecourse_buttons(call):
+    if call.data == 'Python_youtube':
+        random_index = random.randint(0, len(File_data.Youtube_video_python) - 1 )
+        bot.send_message(call.message.chat.id, File_data.Youtube_video_python[random_index])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'Java_youtube')
-def handle_java_youtube(call):
-    random_index = random.randint(0, len(File_data.Youtube_video_Java))
-    bot.send_message(call.message.chat.id, File_data.Youtube_video_Java[random_index])
+    elif call.data == 'Java_youtube':
+        random_index = random.randint(0, len(File_data.Youtube_video_Java) - 1 )
+        bot.send_message(call.message.chat.id, File_data.Youtube_video_Java[random_index])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'Javascript_youtube')
-def handle_javascript_youtube(call):
-    random_index = random.randint(0, len(File_data.Youtube_video_Javascript))
-    bot.send_message(call.message.chat.id, File_data.Youtube_video_Javascript[random_index])
+    elif call.data == 'Javascript_youtube':
+        random_index = random.randint(0, len(File_data.Youtube_video_Javascript) - 1 )
+        bot.send_message(call.message.chat.id, File_data.Youtube_video_Javascript[random_index])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'C_youtube')
-def handle_c_youtube(call):
-    random_index = random.randint(0, len(File_data.Youtube_video_C))
-    bot.send_message(call.message.chat.id, File_data.Youtube_video_C[random_index])
+    elif call.data == 'C_youtube':
+        random_index = random.randint(0, len(File_data.Youtube_video_C) - 1 )
+        bot.send_message(call.message.chat.id, File_data.Youtube_video_C[random_index])
 ####################
 ### Cheatsheets ####
 @bot.message_handler(commands=['cheatsheet'])
@@ -218,26 +205,22 @@ def cheatsheet_menu(message):
     option5 = types.InlineKeyboardButton("Git",callback_data = 'Git_cheatsheet')
     keyboard.add(option1, option2,option3,option4,option5)
     bot.send_message(message.chat.id,"Select your desired Topic:",reply_markup=keyboard)
+@bot.callback_query_handler(func=lambda call: call.data.endswith('_cheatsheet'))
+def handle_cheatsheet_buttons(call):
+    if call.data == 'Python_cheatsheet':
+        bot.send_document(call.message.chat.id,File_data.Cheat_sheet_Python)
 
-@bot.callback_query_handler(func=lambda call: call.data == 'Python_cheatsheet')
-def handle_python_cheatsheet(call):
-    bot.send_document(call.message.chat.id,File_data.Cheat_sheet_Python)
+    elif call.data == 'Java_cheatsheet':
+        bot.send_document(call.message.chat.id,File_data.Cheat_sheet_Java)
 
-@bot.callback_query_handler(func=lambda call: call.data == 'Java_cheatsheet')
-def handle_java_cheatsheet(call):
-    bot.send_document(call.message.chat.id,File_data.Cheat_sheet_Java)
+    elif call.data == 'Javascript_cheatsheet':
+        bot.send_document(call.message.chat.id,File_data.Cheat_sheet_Javascript)
 
-@bot.callback_query_handler(func=lambda call: call.data == 'Javascript_cheatsheet')
-def handle_javascript_cheatsheet(call):
-    bot.send_document(call.message.chat.id,File_data.Cheat_sheet_Javascript)
+    elif call.data == 'C_cheatsheet':
+        bot.send_document(call.message.chat.id,File_data.Cheat_sheet_Cpp)
 
-@bot.callback_query_handler(func=lambda call: call.data == 'C_cheatsheet')
-def handle_c_cheatsheet(call):
-    bot.send_document(call.message.chat.id,File_data.Cheat_sheet_Cpp)
-
-@bot.callback_query_handler(func=lambda call: call.data == 'Git_cheatsheet')
-def handle_git_cheatsheet(call):
-    bot.send_document(call.message.chat.id,File_data.Cheat_sheet_Git)
+    elif call.data == 'Git_cheatsheet':
+        bot.send_document(call.message.chat.id,File_data.Cheat_sheet_Git)
 ##############
 ## Github learning Resources ###
 @bot.message_handler(commands=['githublearn'])
@@ -473,7 +456,6 @@ def send_output_weather(message,latitude,longitude):
     API_weather = API_weather_key()
     response = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={API_weather}&units=metric")
     data = response.json()
-    print(data)
     #assigning each variable to a data from response
     name = data['name']
     description = data['weather'][0]['description']
@@ -503,90 +485,82 @@ def send_output_weather(message,latitude,longitude):
 def activity(message):
     #inline keyboard buttons
     keyboard = types.InlineKeyboardMarkup()
-    option1 = types.InlineKeyboardButton("Education", callback_data='education')
-    option2 = types.InlineKeyboardButton("Recreational", callback_data='recreational')
-    option3 = types.InlineKeyboardButton("Social",callback_data='social')
-    option4 = types.InlineKeyboardButton("DIY",callback_data = 'diy')
-    option5 = types.InlineKeyboardButton("Charity",callback_data='charity')
-    option6 = types.InlineKeyboardButton("Cooking",callback_data='cooking')
-    option7 = types.InlineKeyboardButton("Relaxation",callback_data='relaxation')
-    option8 = types.InlineKeyboardButton("Music",callback_data='music')
-    option9 = types.InlineKeyboardButton("Busywork",callback_data='busywork')
-    option10 = types.InlineKeyboardButton("Any",callback_data='any')
+    option1 = types.InlineKeyboardButton("Education", callback_data='education_activity')
+    option2 = types.InlineKeyboardButton("Recreational", callback_data='recreational_activity')
+    option3 = types.InlineKeyboardButton("Social",callback_data='social_activity')
+    option4 = types.InlineKeyboardButton("DIY",callback_data = 'diy_activity')
+    option5 = types.InlineKeyboardButton("Charity",callback_data='charity_activity')
+    option6 = types.InlineKeyboardButton("Cooking",callback_data='cooking_activity')
+    option7 = types.InlineKeyboardButton("Relaxation",callback_data='relaxation_activity')
+    option8 = types.InlineKeyboardButton("Music",callback_data='music_activity')
+    option9 = types.InlineKeyboardButton("Busywork",callback_data='busywork_activity')
+    option10 = types.InlineKeyboardButton("Any",callback_data='any_activity')
     #defining keyboard
     keyboard.add(option1, option2,option3,option4,option5,option6,option7,option8,option9,option10)
     bot.send_message(message.chat.id,"So your bored and don't know what to do\nI will help you")
     bot.send_message(message.chat.id, 'Choose a Catergory of Activity:', reply_markup=keyboard) #calling buttons below this message
 
 # Define the callback query handlers for different activity types
-@bot.callback_query_handler(func=lambda call: call.data == 'any')
-def handle_any(call):
-    response = requests.get('http://www.boredapi.com/api/activity/')
-    data = response.json()
-    bot.send_message(call.message.chat.id, data['activity'])
+@bot.callback_query_handler(func=lambda call: call.data.endswith('_activity'))
+def handle_activity_buttons(call):
+    if call.data == "any_activity":
+        response = requests.get('http://www.boredapi.com/api/activity/')
+        data = response.json()
+        bot.send_message(call.message.chat.id, data['activity'])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'education')
-def handle_education(call):
-    type = 'education'
-    response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
-    data = response.json()
-    bot.send_message(call.message.chat.id, data['activity'])
+    elif call.data == "education_activity":
+        type = 'education'
+        response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
+        data = response.json()
+        bot.send_message(call.message.chat.id, data['activity'])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'recreational')
-def handle_recreational(call):
-    type = 'recreational'
-    response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
-    data = response.json()
-    bot.send_message(call.message.chat.id, data['activity'])
+    elif call.data == "recreational_activity":
+        type = 'recreational'
+        response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
+        data = response.json()
+        bot.send_message(call.message.chat.id, data['activity'])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'social')
-def handle_social(call):
-    type = 'social'
-    response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
-    data = response.json()
-    bot.send_message(call.message.chat.id, data['activity'])
+    elif call.data == "social_activity":
+        type = 'social'
+        response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
+        data = response.json()
+        bot.send_message(call.message.chat.id, data['activity'])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'diy')
-def handle_diy(call):
-    type = 'diy'
-    response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
-    data = response.json()
-    bot.send_message(call.message.chat.id, data['activity'])
+    elif call.data == "diy_activity":
+        type = 'diy'
+        response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
+        data = response.json()
+        bot.send_message(call.message.chat.id, data['activity'])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'charity')
-def handle_charity(call):
-    type = 'charity'
-    response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
-    data = response.json()
-    bot.send_message(call.message.chat.id, data['activity'])
+    elif call.data == "charity_activity":
+        type = 'charity'
+        response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
+        data = response.json()
+        bot.send_message(call.message.chat.id, data['activity'])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'cooking')
-def handle_cooking(call):
-    type = 'cooking'
-    response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
-    data = response.json()
-    bot.send_message(call.message.chat.id, data['activity'])
+    elif call.data == "cooking_activity":
+        type = 'cooking'
+        response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
+        data = response.json()
+        bot.send_message(call.message.chat.id, data['activity'])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'relaxation')
-def handle_relaxation(call):
-    type = 'relaxation'
-    response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
-    data = response.json()
-    bot.send_message(call.message.chat.id, data['activity'])
+    elif call.data == "relaxation_activity":
+        type = 'relaxation'
+        response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
+        data = response.json()
+        bot.send_message(call.message.chat.id, data['activity'])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'music')
-def handle_music(call):
-    type = 'music'
-    response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
-    data = response.json()
-    bot.send_message(call.message.chat.id, data['activity'])
+    elif call.data == "music_activity":
+        type = 'music'
+        response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
+        data = response.json()
+        bot.send_message(call.message.chat.id, data['activity'])
 
-@bot.callback_query_handler(func=lambda call: call.data == 'busywork')
-def handle_busywork(call):
-    type = 'busywork'
-    response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
-    data = response.json()
-    bot.send_message(call.message.chat.id, data['activity'])
+    elif call.data == "busywork_activity":
+        type = 'busywork'
+        response = requests.get(f'http://www.boredapi.com/api/activity?type={type}')
+        data = response.json()
+        bot.send_message(call.message.chat.id, data['activity'])
 #################
 
 ############################################################################################################################
@@ -597,26 +571,26 @@ def handle_busywork(call):
 def Department_menu(message):
     keyboard = types.InlineKeyboardMarkup()
     # Add the department buttons
-    button1 = types.InlineKeyboardButton(text='Data Science', callback_data='data_science')
-    button2 = types.InlineKeyboardButton(text='Botany', callback_data='botany')
-    button3 = types.InlineKeyboardButton(text='Chemistry', callback_data='chemistry')
-    button4 = types.InlineKeyboardButton(text='Commerce', callback_data='commerce')
-    button5 = types.InlineKeyboardButton(text='Computer Application', callback_data='computer_application')
-    button6 = types.InlineKeyboardButton(text='Computer Science', callback_data='computer_science')
-    button7 = types.InlineKeyboardButton(text='Criminology', callback_data='criminology')
-    button8 = types.InlineKeyboardButton(text='Economics', callback_data='economics')
-    button9 = types.InlineKeyboardButton(text='Electronics', callback_data='electronics')
-    button10 = types.InlineKeyboardButton(text='English', callback_data='english')
-    button11 = types.InlineKeyboardButton(text='Forensic Science', callback_data='forensic_science')
-    button12 = types.InlineKeyboardButton(text='BBA', callback_data='bba')
-    button13 = types.InlineKeyboardButton(text='Mathematics', callback_data='mathematics')
-    button14 = types.InlineKeyboardButton(text='Media', callback_data='media')
-    button15 = types.InlineKeyboardButton(text='Physics', callback_data='physics')
-    button16 = types.InlineKeyboardButton(text='Psychology', callback_data='psychology')
-    button17 = types.InlineKeyboardButton(text='Social Work', callback_data='social_work')
-    button18 = types.InlineKeyboardButton(text='Statistics', callback_data='statistics')
-    button19 = types.InlineKeyboardButton(text='Zoology', callback_data='zoology')
-    button20 = types.InlineKeyboardButton(text='Commerce SF', callback_data='commercesf')
+    button1 = types.InlineKeyboardButton(text='Data Science', callback_data='data_science_syllabus')
+    button2 = types.InlineKeyboardButton(text='Botany', callback_data='botany_syllabus')
+    button3 = types.InlineKeyboardButton(text='Chemistry', callback_data='chemistry_syllabus')
+    button4 = types.InlineKeyboardButton(text='Commerce', callback_data='commerce_syllabus')
+    button5 = types.InlineKeyboardButton(text='Computer Application', callback_data='computer_application_syllabus')
+    button6 = types.InlineKeyboardButton(text='Computer Science', callback_data='computer_science_syllabus')
+    button7 = types.InlineKeyboardButton(text='Criminology', callback_data='criminology_syllabus')
+    button8 = types.InlineKeyboardButton(text='Economics', callback_data='economics_syllabus')
+    button9 = types.InlineKeyboardButton(text='Electronics', callback_data='electronics_syllabus')
+    button10 = types.InlineKeyboardButton(text='English', callback_data='english_syllabus')
+    button11 = types.InlineKeyboardButton(text='Forensic Science', callback_data='forensic_science_syllabus')
+    button12 = types.InlineKeyboardButton(text='BBA', callback_data='bba_syllabus')
+    button13 = types.InlineKeyboardButton(text='Mathematics', callback_data='mathematics_syllabus')
+    button14 = types.InlineKeyboardButton(text='Media', callback_data='media_syllabus')
+    button15 = types.InlineKeyboardButton(text='Physics', callback_data='physics_syllabus')
+    button16 = types.InlineKeyboardButton(text='Psychology', callback_data='psychology_syllabus')
+    button17 = types.InlineKeyboardButton(text='Social Work', callback_data='social_work_syllabus')
+    button18 = types.InlineKeyboardButton(text='Statistics', callback_data='statistics_syllabus')
+    button19 = types.InlineKeyboardButton(text='Zoology', callback_data='zoology_syllabus')
+    button20 = types.InlineKeyboardButton(text='Commerce SF', callback_data='commercesf_syllabus')
 
     # Add the buttons to the keyboard
     keyboard.add(button1, button2, button3, button4, button5, button6, button7, button8, button9,
@@ -624,102 +598,64 @@ def Department_menu(message):
                  button18, button19,button20)
     bot.send_message(message.chat.id, 'Please select a department:', reply_markup=keyboard)
 
-# Callback query handlers for each button
-@bot.callback_query_handler(func=lambda call: call.data == 'data_science')
-def data_science_handler(call):
-    bot.send_document(call.message.chat.id, File_data.Data_science_bvoc_data_science)
-
-@bot.callback_query_handler(func=lambda call: call.data == 'botany')
-def botany_handler(call):
-    bot.send_document(call.message.chat.id, File_data.botany_bsc_botany)
-    bot.send_document(call.message.chat.id,File_data.botany_msc_botany)
-
-@bot.callback_query_handler(func=lambda call: call.data == 'chemistry')
-def chemistry_handler(call):
-    bot.send_document(call.message.chat.id,File_data.chemistry_bsc_chem)
-    bot.send_document(call.message.chat.id,File_data.chemistry_msc_chem)
-
-@bot.callback_query_handler(func=lambda call: call.data == 'commerce')
-def commerce_handler(call):
-    bot.send_document(call.message.chat.id,File_data.commerce_bcom_banking)
-    bot.send_document(call.message.chat.id,File_data.commerce_bcom_finance)
-    bot.send_document(call.message.chat.id,File_data.commerce_mcom)
-
-@bot.callback_query_handler(func=lambda call: call.data == 'commercesf')
-def computer_application_handler(call):
-    bot.send_document(call.message.chat.id,File_data.commerce_sf_bcom)
-
-@bot.callback_query_handler(func=lambda call: call.data == 'computer_application')
-def computer_application_handler(call):
-    bot.send_document(call.message.chat.id,File_data.computer_application_bca)
-    bot.send_document(call.message.chat.id,File_data.computer_application_msc_cs)
-
-@bot.callback_query_handler(func=lambda call: call.data == 'computer_science')
-def computer_science_handler(call):
-    bot.send_document(call.message.chat.id,File_data.computer_science_bsc_cs)
-    bot.send_document(call.message.chat.id,File_data.computer_science_msc_cs)
-
-@bot.callback_query_handler(func=lambda call: call.data == 'criminology')
-def criminology_handler(call):
-    bot.send_document(call.message.chat.id,File_data.criminology_ba_criminology)
-
-@bot.callback_query_handler(func=lambda call: call.data == 'economics')
-def economics_handler(call):
-    bot.send_document(call.message.chat.id,File_data.economics_ba_economics)
-    bot.send_document(call.message.chat.id,File_data.economics_ma_economics)
-
-@bot.callback_query_handler(func=lambda call: call.data == 'electronics')
-def electronics_handler(call):
-    bot.send_document(call.message.chat.id,File_data.electronics_bsc_electronics)
-    bot.send_document(call.message.chat.id,File_data.electronics_msc_electronics)
-
-@bot.callback_query_handler(func=lambda call: call.data == 'english')
-def english_handler(call):
-    bot.send_document(call.message.chat.id,File_data.english_ba_english)
-    bot.send_document(call.message.chat.id,File_data.english_ba_double_main)
-    bot.send_document(call.message.chat.id,File_data.english_ma_english)
-
-@bot.callback_query_handler(func=lambda call: call.data == 'forensic_science')
-def forensic_science_handler(call):
-    bot.send_document(call.message.chat.id,File_data.FS_bvoc_forensic_science)
-
-@bot.callback_query_handler(func=lambda call: call.data == 'bba')
-def bba_handler(call):
-    bot.send_document(call.message.chat.id,File_data.MS_bba)
-
-@bot.callback_query_handler(func=lambda call: call.data == 'mathematics')
-def mathematics_handler(call):
-    bot.send_document(call.message.chat.id,File_data.Maths_bsc_mathematics)
-    bot.send_document(call.message.chat.id,File_data.Maths_msc_mathematics)
-
-@bot.callback_query_handler(func=lambda call: call.data == 'media')
-def media_handler(call):
-    bot.send_document(call.message.chat.id,File_data.Media_ba_multimedia)
-    bot.send_document(call.message.chat.id,File_data.Media_ba_visual_communication)
-    bot.send_document(call.message.chat.id,File_data.Media_ma_visual_communication)
-
-@bot.callback_query_handler(func=lambda call: call.data == 'physics')
-def physics_handler(call):
-    bot.send_document(call.message.chat.id,File_data.Physics_bsc_physics)
-    bot.send_document(call.message.chat.id,File_data.Physics_msc_physics)
-
-@bot.callback_query_handler(func=lambda call: call.data == 'psychology')
-def handle_psychology(call):
-    bot.send_document(call.message.chat.id,File_data.Psychology_integrated_msc_psychology)
-
-@bot.callback_query_handler(func=lambda call: call.data == 'social_work')
-def handle_social_work(call):
-    bot.send_document(call.message.chat.id,File_data.SW_msw)
-
-@bot.callback_query_handler(func=lambda call: call.data == 'statistics')
-def handle_statistics(call):
-    bot.send_document(call.message.chat.id,File_data.Stati_bsc_statistics)
-    bot.send_document(call.message.chat.id,File_data.Stati_msc_statistics)
-
-@bot.callback_query_handler(func=lambda call: call.data == 'zoology')
-def handle_zoology(call):
-    bot.send_document(call.message.chat.id,File_data.Zoology_bsc_zoology)
-    bot.send_document(call.message.chat.id,File_data.Zoology_msc_zoology)
+@bot.callback_query_handler(func=lambda call: call.data.endswith('_syllabus'))
+def syllabus_button_callback(call):
+    if call.data == 'data_science_syllabus':
+        bot.send_document(call.message.chat.id, File_data.Data_science_bvoc_data_science)
+    elif call.data == 'botany_syllabus':
+        bot.send_document(call.message.chat.id, File_data.botany_bsc_botany)
+        bot.send_document(call.message.chat.id, File_data.botany_msc_botany)
+    elif call.data == 'chemistry_syllabus':
+        bot.send_document(call.message.chat.id, File_data.chemistry_bsc_chem)
+        bot.send_document(call.message.chat.id, File_data.chemistry_msc_chem)
+    elif call.data == 'commerce_syllabus':
+        bot.send_document(call.message.chat.id, File_data.commerce_bcom_banking)
+        bot.send_document(call.message.chat.id, File_data.commerce_bcom_finance)
+        bot.send_document(call.message.chat.id, File_data.commerce_mcom)
+    elif call.data == 'commercesf_syllabus':
+        bot.send_document(call.message.chat.id, File_data.commerce_sf_bcom)
+    elif call.data == 'computer_application_syllabus':
+        bot.send_document(call.message.chat.id, File_data.computer_application_bca)
+        bot.send_document(call.message.chat.id, File_data.computer_application_msc_cs)
+    elif call.data == 'computer_science_syllabus':
+        bot.send_document(call.message.chat.id, File_data.computer_science_bsc_cs)
+        bot.send_document(call.message.chat.id, File_data.computer_science_msc_cs)
+    elif call.data == 'criminology_syllabus':
+        bot.send_document(call.message.chat.id, File_data.criminology_ba_criminology)
+    elif call.data == 'economics_syllabus':
+        bot.send_document(call.message.chat.id, File_data.economics_ba_economics)
+        bot.send_document(call.message.chat.id, File_data.economics_ma_economics)
+    elif call.data == 'electronics_syllabus':
+        bot.send_document(call.message.chat.id, File_data.electronics_bsc_electronics)
+        bot.send_document(call.message.chat.id, File_data.electronics_msc_electronics)
+    elif call.data == 'english_syllabus':
+        bot.send_document(call.message.chat.id, File_data.english_ba_english)
+        bot.send_document(call.message.chat.id, File_data.english_ba_double_main)
+        bot.send_document(call.message.chat.id, File_data.english_ma_english)
+    elif call.data == 'forensic_science_syllabus':
+        bot.send_document(call.message.chat.id, File_data.FS_bvoc_forensic_science)
+    elif call.data == 'bba_syllabus':
+        bot.send_document(call.message.chat.id, File_data.MS_bba)
+    elif call.data == 'mathematics_syllabus':
+        bot.send_document(call.message.chat.id, File_data.Maths_bsc_mathematics)
+        bot.send_document(call.message.chat.id, File_data.Maths_msc_mathematics)
+    elif call.data == 'media_syllabus':
+        bot.send_document(call.message.chat.id, File_data.Media_ba_multimedia)
+        bot.send_document(call.message.chat.id, File_data.Media_ba_visual_communication)
+        bot.send_document(call.message.chat.id, File_data.Media_ma_visual_communication)
+    elif call.data == 'physics_syllabus':
+        bot.send_document(call.message.chat.id, File_data.Physics_bsc_physics)
+        bot.send_document(call.message.chat.id, File_data.Physics_msc_physics)
+    elif call.data == 'psychology_syllabus':
+        bot.send_document(call.message.chat.id, File_data.Psychology_integrated_msc_psychology)
+    elif call.data == 'social_work_syllabus':
+        bot.send_document(call.message.chat.id, File_data.SW_msw)
+    elif call.data == 'statistics_syllabus':
+        bot.send_document(call.message.chat.id, File_data.Stati_bsc_statistics)
+        bot.send_document(call.message.chat.id, File_data.Stati_msc_statistics)
+    elif call.data == 'zoology_syllabus':
+        bot.send_document(call.message.chat.id, File_data.Zoology_bsc_zoology)
+        bot.send_document(call.message.chat.id, File_data.Zoology_msc_zoology)
 #############################
 ################################################################################################################################
 
@@ -731,44 +667,40 @@ def linux_distro_reccomendator_menu(message):
     keyboard = types.InlineKeyboardMarkup()
 
     # Defining inline buttons
-    button1 = types.InlineKeyboardButton(text='Beginners', callback_data='beginners')
-    button2 = types.InlineKeyboardButton(text='Gamers', callback_data='gamers')
-    button3 = types.InlineKeyboardButton(text='Professional Use', callback_data='professional_use')
-    button4 = types.InlineKeyboardButton(text='Low-spec System', callback_data='low_spec_system')
-    button5 = types.InlineKeyboardButton(text='Hackers', callback_data='hackers')
-    button6 = types.InlineKeyboardButton(text='Developers', callback_data='developers')
+    button1 = types.InlineKeyboardButton(text='Beginners', callback_data='beginners_linuxdistro')
+    button2 = types.InlineKeyboardButton(text='Gamers', callback_data='gamers_linuxdistro')
+    button3 = types.InlineKeyboardButton(text='Professional Use', callback_data='professional_use_linuxdistro')
+    button4 = types.InlineKeyboardButton(text='Low-spec System', callback_data='low_spec_system_linuxdistro')
+    button5 = types.InlineKeyboardButton(text='Hackers', callback_data='hackers_linuxdistro')
+    button6 = types.InlineKeyboardButton(text='Developers', callback_data='developers_linuxdistro')
     keyboard.add(button1, button2, button3, button4, button5, button6)
     bot.send_message(message.chat.id, 'Please select an option:', reply_markup=keyboard)
 
-@bot.callback_query_handler(func=lambda call: call.data == 'beginners')
-def handle_beginners(call):
-    bot.send_message(call.message.chat.id, 'Top linux Distro for beginners')
-    bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_beginners)
+@bot.callback_query_handler(func=lambda call : call.data.endswith('linuxdistro'))
+def handle_callback_linuxdistro_buttons(call):
+    if call.data == 'beginners_linuxdistro':
+        bot.send_message(call.message.chat.id, 'Top linux Distro for beginners')
+        bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_beginners)
 
-@bot.callback_query_handler(func=lambda call: call.data == 'gamers')
-def handle_gamers(call):
-    bot.send_message(call.message.chat.id, 'Top linux Distro for gamers')
-    bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_gamers)
+    elif call.data == 'gamers_linuxdistro':
+        bot.send_message(call.message.chat.id, 'Top linux Distro for gamers')
+        bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_gamers)
 
-@bot.callback_query_handler(func=lambda call: call.data == 'professional_use')
-def handle_professional_use(call):
-    bot.send_message(call.message.chat.id, 'Top linux Distro for Professional_use')
-    bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_proffesional_use)
+    elif call.data == 'professional_use_linuxdistro':
+        bot.send_message(call.message.chat.id, 'Top linux Distro for Professional_use')
+        bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_proffesional_use)
 
-@bot.callback_query_handler(func=lambda call: call.data == 'low_spec_system')
-def handle_low_spec_system(call):
-    bot.send_message(call.message.chat.id, 'Top linux Distro for low_spec_system')
-    bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_low_spec_system)
+    elif call.data == 'low_spec_system_linuxdistro':
+        bot.send_message(call.message.chat.id, 'Top linux Distro for low_spec_system')
+        bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_low_spec_system)
 
-@bot.callback_query_handler(func=lambda call: call.data == 'hackers')
-def handle_hackers(call):
-    bot.send_message(call.message.chat.id, 'Top linux Distro for Hackers')
-    bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_hackers)
+    elif call.data == 'hackers_linuxdistro':
+        bot.send_message(call.message.chat.id, 'To. linux Distro for hackers')
+        bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_hackers)
 
-@bot.callback_query_handler(func=lambda call: call.data == 'developers')
-def handle_developers(call):
-    bot.send_message(call.message.chat.id, 'Top linux Distro for Developers')
-    bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_developers)
+    elif call.data == 'developers_linuxdistro':
+        bot.send_message(call.message.chat.id, 'Top linux Distro for Developers')
+        bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_developers)
 ##############################
 ### Linux commands pdf #######
 @bot.message_handler(commands=['linuxcommandpdf'])
@@ -827,9 +759,9 @@ def super(message):
     bot.send_message(message.chat.id,"https://www.superheroapi.com/ids.html")
     message = bot.send_message(message.chat.id,"You can use 'Find in page' feature of your browser")
     bot.send_message(message.chat.id,"For Random send a number between (1-731)")
-    bot.register_next_step_handler(message,processing_sending_deatils) # taking input
+    bot.register_next_step_handler(message,processing_sending_superhero_deatils) # taking input
 
-def processing_sending_deatils(message):
+def processing_sending_superhero_deatils(message):
     id = message.text
     url = f'https://superheroapi.com/api/248489081095040/{id}'
     response = requests.get(url)
