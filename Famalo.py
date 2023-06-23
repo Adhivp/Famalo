@@ -12,17 +12,226 @@ from telebot import types
 import os
 import png
 from tabulate import tabulate
-import File_data
+import Data_File
 from API_of_adhi import API_key_Famalo,coporate_bs_api_key,API_weather_key #API keys
 
 #bot api
 token = API_key_Famalo()
 bot = telebot.TeleBot(token)
 
+@bot.message_handler(commands = ['help','start'])
+def send_start_help_option(message):
+    bot.send_message(message.chat.id,"You can choose my auto feature detection -/action")
+    bot.send_message(message.chat.id,"OR")
+    bot.send_message(message.chat.id,"You can choose traditional menu -/mainmenu")
+
+@bot.message_handler(commands=['list'])
+def send_list_features(message):
+    bot.send_message(message.chat.id,Data_File.list_features)
+################################################# Action/command detection ##################################
+@bot.message_handler(commands=['action']) #feature detection
+def input_action(message):
+    bot.reply_to(message,"I will try to automatically detect feature from your text")
+    bot.send_message(message.chat.id,"Enter your text")
+    bot.register_next_step_handler(message,action_input_processing)
+
+def action_input_processing(message):
+    text = message.text
+    text = text.lower()
+    text_list = text.split(" ")
+    index = 0
+    for keyword in text_list:
+        if index + 1<len(text_list): # preventing index error 
+            # for detecting words like "online course" where 2 words are seperated with space
+            _2_keywords = f"{text_list[index]} {text_list[index + 1]}"
+            if index + 2 <len(text_list): # preventing index error
+                #for detecting words like 'git hub learn' where 3 words are there
+                _3_keywords = f"{text_list[index]} {text_list[index+1]} {text_list[index+2]}" 
+        if len(text_list) < 4 : # to handle if input is too small 
+            _3_keywords ="#####" # random text which is not available in possible_keywords list
+            if len(text_list) < 3 : # to handle if input is too small 
+                _2_keywords = "#####" # random text which is not available in possible_keywords list
+        if keyword in Data_File.youtube_course_possible_keywords :
+            bot.send_message(message.chat.id,"Did you mean youtube course reccomendator(Y/N)")
+            possible_command = 'youtube'
+            bot.register_next_step_handler(message,Y_N_possible_command,possible_command)
+            break
+        elif keyword in Data_File.online_course_possible_keywords or _2_keywords in Data_File.online_course_possible_keywords :
+            bot.send_message(message.chat.id,"Did you mean online course reccomendator(Y/N)")
+            possible_command = 'onlinecourse'
+            bot.register_next_step_handler(message,Y_N_possible_command,possible_command)
+            break
+        elif keyword in Data_File.cheat_sheet_possible_keywords or _2_keywords in Data_File.cheat_sheet_possible_keywords :
+            bot.send_message(message.chat.id,"Did you mean Cheat sheet sender (Y/N)")
+            possible_command = 'cheatsheet'
+            bot.register_next_step_handler(message,Y_N_possible_command,possible_command)
+            break
+        elif keyword in Data_File.github_learn_possible_keywords or _2_keywords in Data_File.github_learn_possible_keywords or _3_keywords in Data_File.github_learn_possible_keywords :
+            bot.send_message(message.chat.id,"Did you mean top github learning resources (Y/N)")
+            possible_command = 'githublearn'
+            bot.register_next_step_handler(message,Y_N_possible_command,possible_command)
+            break
+        elif keyword in Data_File.external_mark_calculator_possbile_keywords or _2_keywords in Data_File.external_mark_calculator_possbile_keywords:
+            bot.send_message(message.chat.id,"Did you mean external mark calculator(Y/N)")
+            possible_command = 'gradecalculator'
+            bot.register_next_step_handler(message,Y_N_possible_command,possible_command)
+            break
+        elif keyword in Data_File.playback_speed_possible_keywords or _2_keywords in Data_File.playback_speed_possible_keywords or _3_keywords in Data_File.playback_speed_possible_keywords :
+            bot.send_message(message.chat.id,"Did you mean playbackspeed calculator(Y/N)")
+            possible_command = 'playbackspeedcalculator'
+            bot.register_next_step_handler(message,Y_N_possible_command,possible_command)
+            break
+        elif keyword in Data_File.password_generator_possible_keywords or _2_keywords in Data_File.password_generator_possible_keywords :
+            bot.send_message(message.chat.id,"Did you mean random password generator (Y/N)")
+            possible_command = 'password'
+            bot.register_next_step_handler(message,Y_N_possible_command,possible_command)
+            break
+        elif keyword in Data_File.text_to_audio_possible_keywords or _2_keywords in Data_File.text_to_audio_possible_keywords or _3_keywords in Data_File.text_to_audio_possible_keywords:
+            bot.send_message(message.chat.id,"Did you mean text to audio converter (Y/N)")
+            possible_command = 'textaudio'
+            bot.register_next_step_handler(message,Y_N_possible_command,possible_command)
+            break
+        elif keyword in Data_File.qr_code_generator_possible_keywords or _2_keywords in Data_File.qr_code_generator_possible_keywords:
+            bot.send_message(message.chat.id,"Did you mean QR code Generator (Y/N)")
+            possible_command = 'qrcodegenerator'
+            bot.register_next_step_handler(message,Y_N_possible_command,possible_command)
+            break
+        elif keyword in Data_File.morse_code_generator_possible_keywords or _2_keywords in Data_File.morse_code_generator_possible_keywords:
+            bot.send_message(message.chat.id,"Did you mean Morse Code generator (Y/N)")
+            possible_command = 'morsecode'
+            bot.register_next_step_handler(message,Y_N_possible_command,possible_command)
+            break
+        elif keyword in Data_File.weather_possible_keywords:
+            bot.send_message(message.chat.id,"Did you mean Weather deatils of your current location (Y/N)")
+            possible_command = 'weather'
+            bot.register_next_step_handler(message,Y_N_possible_command,possible_command)
+            break
+        elif keyword in Data_File.random_activity_possible_keywords or _2_keywords in Data_File.random_activity_possible_keywords:
+            bot.send_message(message.chat.id,"Did you mean random activity generator (Y/N)")
+            possible_command = 'activity'
+            bot.register_next_step_handler(message,Y_N_possible_command,possible_command)
+            break
+        elif keyword in Data_File.st_thomas_syllabus_possible_keywords :
+            bot.send_message(message.chat.id,"Did you mean syllabus sender of ST thomas college (Y/N)")
+            possible_command = 'syllabus'
+            bot.register_next_step_handler(message,Y_N_possible_command,possible_command)
+            break
+        elif keyword in Data_File.linux_distro_reccomendator_possible_keywords or _2_keywords in  Data_File.linux_distro_reccomendator_possible_keywords:
+            bot.send_message(message.chat.id,"Did you mean linux distro reccomendator (Y/N)")
+            possible_command = 'linuxdistro'
+            bot.register_next_step_handler(message,Y_N_possible_command,possible_command)
+            break
+        elif keyword in Data_File.linux_commands_pdf_sender_possible_keywords or _2_keywords in  Data_File.linux_commands_pdf_sender_possible_keywords:
+            bot.send_message(message.chat.id,"Did you mean linux commands pdf (Y/N)")
+            possible_command = 'linuxcommandpdf'
+            bot.register_next_step_handler(message,Y_N_possible_command,possible_command)
+            break
+        elif keyword in Data_File.random_joke_possible_keywords:
+            bot.send_message(message.chat.id,"Did you mean random joke generator (Y/N)")
+            possible_command = 'joke'
+            bot.register_next_step_handler(message,Y_N_possible_command,possible_command)
+            break
+        elif keyword in Data_File.Dice_possible_keywords:
+            bot.send_message(message.chat.id,"Did you mean Dice simulator (Y/N)")
+            possible_command = 'dice'
+            bot.register_next_step_handler(message,Y_N_possible_command,possible_command)
+            break
+        elif keyword in Data_File.Coporate_bs_possible_keywords:
+            bot.send_message(message.chat.id,"Did you mean coporate bs (Y/N)")
+            possible_command = 'coporatebs'
+            bot.register_next_step_handler(message,Y_N_possible_command,possible_command)
+            break
+        elif keyword in Data_File.super_hero_possible_keywords or _2_keywords in Data_File.super_hero_possible_keywords:
+            bot.send_message(message.chat.id,"Did you mean super hero deatils (Y/N)")
+            possible_command = 'super'
+            bot.register_next_step_handler(message,Y_N_possible_command,possible_command)
+            break
+        elif keyword in Data_File.Random_meme_possible_keywords:
+            bot.send_message(message.chat.id,"Did you mean random meme generator (Y/N)")
+            possible_command = 'meme'
+            bot.register_next_step_handler(message,Y_N_possible_command,possible_command)
+            break
+        else:
+            if index == len(text_list) - 1:
+                bot.send_message(message.chat.id,"Feature couldn't be detected")
+                bot.send_message(message.chat.id,"Please try again! -/action")
+                break
+        index+=1   
+
+def Y_N_possible_command(message,possible_command):
+    Y_N = message.text
+    Y_N = Y_N.upper()
+    if Y_N =='Y' and possible_command == 'youtube':
+        bot.send_message(message.chat.id,"Here you go youtube course reccomendator")
+        youtubecourse_menu(message)
+    elif Y_N == 'Y' and possible_command == 'onlinecourse':
+        bot.send_message(message.chat.id,"Here you go online course reccomendator")
+        onlinecourse_menu(message)
+    elif Y_N == 'Y' and possible_command == 'cheatsheet':
+        bot.send_message(message.chat.id,"Here you go cheatsheet sender")
+        cheatsheet_menu(message)
+    elif Y_N == 'Y' and possible_command == 'githublearn':
+        bot.send_message(message.chat.id,"Here you go Top github learning resources")
+        github_learn_send_links(message)
+    elif Y_N == 'Y' and possible_command == 'gradecalculator':
+        bot.send_message(message.chat.id,"Here you go External mark Calculator")
+        gradecalculator(message)
+    elif Y_N == 'Y' and possible_command == 'playbackspeedcalculator':
+        bot.send_message(message.chat.id,"Here you go Playbackspeed Calculator")
+        playbackspeedcalculator(message)
+    elif Y_N == 'Y' and possible_command == 'password':
+        bot.send_message(message.chat.id,"Here you go random password generator")
+        password_generator1(message)
+    elif Y_N == 'Y' and possible_command == 'textaudio':
+        bot.send_message(message.chat.id,"Here you go text to audio converter")
+        textaudio(message)
+    elif Y_N == 'Y' and possible_command == 'qrcodegenerator':
+        bot.send_message(message.chat.id,"Here you go QR code generator")
+        qrcodegenerator(message)
+    elif Y_N == 'Y' and possible_command == 'morsecode':
+        bot.send_message(message.chat.id,"Here you go Morse code generator")
+        text_morse_code(message)
+    elif Y_N == 'Y' and possible_command == 'weather':
+        bot.send_message(message.chat.id,"Here you go Weather")
+        weather(message)
+    elif Y_N == 'Y' and possible_command == 'activity':
+        bot.send_message(message.chat.id,"Here you go random activity generator")
+        activity(message)
+    elif Y_N == 'Y' and possible_command == 'syllabus':
+        bot.send_message(message.chat.id,"Here you go syllabus sender of ST thomas college")
+        syllabus_Department_menu(message)
+    elif Y_N == 'Y' and possible_command == 'linuxdistro':
+        bot.send_message(message.chat.id,"Here you go linux distro reccomendator")
+        linux_distro_reccomendator_menu(message)
+    elif Y_N == 'Y' and possible_command == 'linuxcommandpdf':
+        bot.send_message(message.chat.id,"Here you go linux commands pdf")
+        send_linux_commands_pdf(message)
+    elif Y_N == 'Y' and possible_command == 'joke':
+        bot.send_message(message.chat.id,"Here you go random joke generator")
+        joke(message)
+    elif Y_N == 'Y' and possible_command == 'dice':
+        bot.send_message(message.chat.id,"Here you go Dice simulator")
+        dice(message)
+    elif Y_N == 'Y' and possible_command == 'coporatebs':
+        bot.send_message(message.chat.id,"Here you go coporate bs")
+        coporatebs(message)
+    elif Y_N == 'Y' and possible_command == 'super':
+        bot.send_message(message.chat.id,"Here you go superhero deatils")
+        super(message)
+    elif Y_N == 'Y' and possible_command == 'meme':
+        bot.send_message(message.chat.id,"Here you go random meme generator")
+        meme(message)
+    elif Y_N == 'N':
+        bot.send_message(message.chat.id,"Sorry , Feature not available")
+        bot.send_message(message.chat.id,"You can feel free to contact the developer to request for this feature - /contact")
+    else:
+        bot.send_message(message.chat.id,"Invalid command try again!")
+        input_action(message)   
+#############################################################################################################
 ################################################# Main Menu##################################################
 
-@bot.message_handler(commands=['start','help','Mainmenu']) #main menu
-def send_welcome(message):#message default parameter
+@bot.message_handler(commands=['mainmenu']) #main menu
+def send_main_menu(message):#message default parameter
     bot.reply_to(message,"Hi!\nI'm Famalo \nYour all in one buddy \nYou can choose one of the categories from below ")
     bot.send_message(message.chat.id,"Education🧑‍🎓📚📖  -/education")
     bot.send_message(message.chat.id,"Calculators📱   -/calculators")
@@ -112,12 +321,12 @@ def handle_onlinecourse_buttons(call):
         bot.send_message(call.message.chat.id, "Select your desired Platform:", reply_markup=keyboard_2)
 
     elif call.data == 'Python_Udemy_online':
-        random_index = random.randint(0, len(File_data.Online_course_Python_Udemy) - 1 )
-        bot.send_message(call.message.chat.id, File_data.Online_course_Python_Udemy[random_index])
+        random_index = random.randint(0, len(Data_File.Online_course_Python_Udemy) - 1 )
+        bot.send_message(call.message.chat.id, Data_File.Online_course_Python_Udemy[random_index])
 
     elif call.data == 'Python_Coursera_online':
-        random_index = random.randint(0, len(File_data.Online_course_Python_Coursera) - 1 )
-        bot.send_message(call.message.chat.id, File_data.Online_course_Python_Coursera[random_index])
+        random_index = random.randint(0, len(Data_File.Online_course_Python_Coursera) - 1 )
+        bot.send_message(call.message.chat.id, Data_File.Online_course_Python_Coursera[random_index])
 
     elif call.data == 'Java_online':
         keyboard_2 = types.InlineKeyboardMarkup()
@@ -127,12 +336,12 @@ def handle_onlinecourse_buttons(call):
         bot.send_message(call.message.chat.id, "Select your desired Platform:", reply_markup=keyboard_2)
 
     elif call.data == 'Java_Udemy_online':
-        random_index = random.randint(0, len(File_data.Online_course_Java_Udemy) - 1 )
-        bot.send_message(call.message.chat.id, File_data.Online_course_Java_Udemy[random_index])
+        random_index = random.randint(0, len(Data_File.Online_course_Java_Udemy) - 1 )
+        bot.send_message(call.message.chat.id, Data_File.Online_course_Java_Udemy[random_index])
 
     elif call.data == 'Java_Coursera_online':
-        random_index = random.randint(0, len(File_data.Online_course_Java_Coursera) - 1 )
-        bot.send_message(call.message.chat.id, File_data.Online_course_Java_Coursera[random_index])
+        random_index = random.randint(0, len(Data_File.Online_course_Java_Coursera) - 1 )
+        bot.send_message(call.message.chat.id, Data_File.Online_course_Java_Coursera[random_index])
 
     elif call.data == 'Javascript_online':
         keyboard_2 = types.InlineKeyboardMarkup()
@@ -142,12 +351,12 @@ def handle_onlinecourse_buttons(call):
         bot.send_message(call.message.chat.id, "Select your desired Platform:", reply_markup=keyboard_2)
 
     elif call.data == 'Javascript_Udemy_online':
-        random_index = random.randint(0, len(File_data.Online_course_Javascript_Udemy) - 1 )
-        bot.send_message(call.message.chat.id, File_data.Online_course_Javascript_Udemy[random_index])
+        random_index = random.randint(0, len(Data_File.Online_course_Javascript_Udemy) - 1 )
+        bot.send_message(call.message.chat.id, Data_File.Online_course_Javascript_Udemy[random_index])
 
     elif call.data == 'Javascript_Coursera_online':
-        random_index = random.randint(0, len(File_data.Online_course_Javascript_Coursera) - 1 )
-        bot.send_message(call.message.chat.id, File_data.Online_course_Javascript_Coursera[random_index])
+        random_index = random.randint(0, len(Data_File.Online_course_Javascript_Coursera) - 1 )
+        bot.send_message(call.message.chat.id, Data_File.Online_course_Javascript_Coursera[random_index])
 
     elif call.data == 'C_online':
         keyboard_2 = types.InlineKeyboardMarkup()
@@ -157,12 +366,12 @@ def handle_onlinecourse_buttons(call):
         bot.send_message(call.message.chat.id, "Select your desired Platform:", reply_markup=keyboard_2)
 
     elif call.data == 'C_Udemy_online':
-        random_index = random.randint(0, len(File_data.Online_course_C_Udemy) - 1 )
-        bot.send_message(call.message.chat.id, File_data.Online_course_C_Udemy[random_index])
+        random_index = random.randint(0, len(Data_File.Online_course_C_Udemy) - 1 )
+        bot.send_message(call.message.chat.id, Data_File.Online_course_C_Udemy[random_index])
 
     elif call.data == 'C_Coursera_online':
-        random_index = random.randint(0, len(File_data.Online_course_C_Coursera) - 1 )
-        bot.send_message(call.message.chat.id, File_data.Online_course_C_Coursera[random_index])
+        random_index = random.randint(0, len(Data_File.Online_course_C_Coursera) - 1 )
+        bot.send_message(call.message.chat.id, Data_File.Online_course_C_Coursera[random_index])
 #############################
 ### Youtube_recommendator ###
 @bot.message_handler(commands='youtubecourse')
@@ -179,20 +388,20 @@ def youtubecourse_menu(message):
 @bot.callback_query_handler(func=lambda call: call.data.endswith('_youtube'))
 def handle_youtubecourse_buttons(call):
     if call.data == 'Python_youtube':
-        random_index = random.randint(0, len(File_data.Youtube_video_python) - 1 )
-        bot.send_message(call.message.chat.id, File_data.Youtube_video_python[random_index])
+        random_index = random.randint(0, len(Data_File.Youtube_video_python) - 1 )
+        bot.send_message(call.message.chat.id, Data_File.Youtube_video_python[random_index])
 
     elif call.data == 'Java_youtube':
-        random_index = random.randint(0, len(File_data.Youtube_video_Java) - 1 )
-        bot.send_message(call.message.chat.id, File_data.Youtube_video_Java[random_index])
+        random_index = random.randint(0, len(Data_File.Youtube_video_Java) - 1 )
+        bot.send_message(call.message.chat.id, Data_File.Youtube_video_Java[random_index])
 
     elif call.data == 'Javascript_youtube':
-        random_index = random.randint(0, len(File_data.Youtube_video_Javascript) - 1 )
-        bot.send_message(call.message.chat.id, File_data.Youtube_video_Javascript[random_index])
+        random_index = random.randint(0, len(Data_File.Youtube_video_Javascript) - 1 )
+        bot.send_message(call.message.chat.id, Data_File.Youtube_video_Javascript[random_index])
 
     elif call.data == 'C_youtube':
-        random_index = random.randint(0, len(File_data.Youtube_video_C) - 1 )
-        bot.send_message(call.message.chat.id, File_data.Youtube_video_C[random_index])
+        random_index = random.randint(0, len(Data_File.Youtube_video_C) - 1 )
+        bot.send_message(call.message.chat.id, Data_File.Youtube_video_C[random_index])
 ####################
 ### Cheatsheets ####
 @bot.message_handler(commands=['cheatsheet'])
@@ -208,19 +417,19 @@ def cheatsheet_menu(message):
 @bot.callback_query_handler(func=lambda call: call.data.endswith('_cheatsheet'))
 def handle_cheatsheet_buttons(call):
     if call.data == 'Python_cheatsheet':
-        bot.send_document(call.message.chat.id,File_data.Cheat_sheet_Python)
+        bot.send_document(call.message.chat.id,Data_File.Cheat_sheet_Python)
 
     elif call.data == 'Java_cheatsheet':
-        bot.send_document(call.message.chat.id,File_data.Cheat_sheet_Java)
+        bot.send_document(call.message.chat.id,Data_File.Cheat_sheet_Java)
 
     elif call.data == 'Javascript_cheatsheet':
-        bot.send_document(call.message.chat.id,File_data.Cheat_sheet_Javascript)
+        bot.send_document(call.message.chat.id,Data_File.Cheat_sheet_Javascript)
 
     elif call.data == 'C_cheatsheet':
-        bot.send_document(call.message.chat.id,File_data.Cheat_sheet_Cpp)
+        bot.send_document(call.message.chat.id,Data_File.Cheat_sheet_Cpp)
 
     elif call.data == 'Git_cheatsheet':
-        bot.send_document(call.message.chat.id,File_data.Cheat_sheet_Git)
+        bot.send_document(call.message.chat.id,Data_File.Cheat_sheet_Git)
 ##############
 ## Github learning Resources ###
 @bot.message_handler(commands=['githublearn'])
@@ -412,7 +621,7 @@ def Processing_qrcodegenerator(message): # handling user input
 ###########################
 ### Morse Code Generator###
 @bot.message_handler(commands=['morsecode'])
-def textaudio(message):
+def text_morse_code(message):
     bot.reply_to(message,"This will convert your text to morsecode")
     msg = bot.send_message(message.chat.id,"Enter the text")
     bot.register_next_step_handler(msg,text_morse_code_converter)
@@ -420,8 +629,8 @@ def text_morse_code_converter(message):
     text = message.text
     morse_code = ''
     for i in text.upper():
-        if i in File_data.morse_dicitonary:
-            morse_code += File_data.morse_dicitonary[i] + ' '
+        if i in Data_File.morse_dicitonary:
+            morse_code += Data_File.morse_dicitonary[i] + ' '
     bot.send_message(message.chat.id,morse_code)
 ###########################
 
@@ -568,7 +777,7 @@ def handle_activity_buttons(call):
 ################################################# St thomas college Specific  Menu Features##################################################
 
 @bot.message_handler(commands=['syllabus'])
-def Department_menu(message):
+def syllabus_Department_menu(message):
     keyboard = types.InlineKeyboardMarkup()
     # Add the department buttons
     button1 = types.InlineKeyboardButton(text='Data Science', callback_data='data_science_syllabus')
@@ -601,61 +810,61 @@ def Department_menu(message):
 @bot.callback_query_handler(func=lambda call: call.data.endswith('_syllabus'))
 def syllabus_button_callback(call):
     if call.data == 'data_science_syllabus':
-        bot.send_document(call.message.chat.id, File_data.Data_science_bvoc_data_science)
+        bot.send_document(call.message.chat.id, Data_File.Data_science_bvoc_data_science)
     elif call.data == 'botany_syllabus':
-        bot.send_document(call.message.chat.id, File_data.botany_bsc_botany)
-        bot.send_document(call.message.chat.id, File_data.botany_msc_botany)
+        bot.send_document(call.message.chat.id, Data_File.botany_bsc_botany)
+        bot.send_document(call.message.chat.id, Data_File.botany_msc_botany)
     elif call.data == 'chemistry_syllabus':
-        bot.send_document(call.message.chat.id, File_data.chemistry_bsc_chem)
-        bot.send_document(call.message.chat.id, File_data.chemistry_msc_chem)
+        bot.send_document(call.message.chat.id, Data_File.chemistry_bsc_chem)
+        bot.send_document(call.message.chat.id, Data_File.chemistry_msc_chem)
     elif call.data == 'commerce_syllabus':
-        bot.send_document(call.message.chat.id, File_data.commerce_bcom_banking)
-        bot.send_document(call.message.chat.id, File_data.commerce_bcom_finance)
-        bot.send_document(call.message.chat.id, File_data.commerce_mcom)
+        bot.send_document(call.message.chat.id, Data_File.commerce_bcom_banking)
+        bot.send_document(call.message.chat.id, Data_File.commerce_bcom_finance)
+        bot.send_document(call.message.chat.id, Data_File.commerce_mcom)
     elif call.data == 'commercesf_syllabus':
-        bot.send_document(call.message.chat.id, File_data.commerce_sf_bcom)
+        bot.send_document(call.message.chat.id, Data_File.commerce_sf_bcom)
     elif call.data == 'computer_application_syllabus':
-        bot.send_document(call.message.chat.id, File_data.computer_application_bca)
-        bot.send_document(call.message.chat.id, File_data.computer_application_msc_cs)
+        bot.send_document(call.message.chat.id, Data_File.computer_application_bca)
+        bot.send_document(call.message.chat.id, Data_File.computer_application_msc_cs)
     elif call.data == 'computer_science_syllabus':
-        bot.send_document(call.message.chat.id, File_data.computer_science_bsc_cs)
-        bot.send_document(call.message.chat.id, File_data.computer_science_msc_cs)
+        bot.send_document(call.message.chat.id, Data_File.computer_science_bsc_cs)
+        bot.send_document(call.message.chat.id, Data_File.computer_science_msc_cs)
     elif call.data == 'criminology_syllabus':
-        bot.send_document(call.message.chat.id, File_data.criminology_ba_criminology)
+        bot.send_document(call.message.chat.id, Data_File.criminology_ba_criminology)
     elif call.data == 'economics_syllabus':
-        bot.send_document(call.message.chat.id, File_data.economics_ba_economics)
-        bot.send_document(call.message.chat.id, File_data.economics_ma_economics)
+        bot.send_document(call.message.chat.id, Data_File.economics_ba_economics)
+        bot.send_document(call.message.chat.id, Data_File.economics_ma_economics)
     elif call.data == 'electronics_syllabus':
-        bot.send_document(call.message.chat.id, File_data.electronics_bsc_electronics)
-        bot.send_document(call.message.chat.id, File_data.electronics_msc_electronics)
+        bot.send_document(call.message.chat.id, Data_File.electronics_bsc_electronics)
+        bot.send_document(call.message.chat.id, Data_File.electronics_msc_electronics)
     elif call.data == 'english_syllabus':
-        bot.send_document(call.message.chat.id, File_data.english_ba_english)
-        bot.send_document(call.message.chat.id, File_data.english_ba_double_main)
-        bot.send_document(call.message.chat.id, File_data.english_ma_english)
+        bot.send_document(call.message.chat.id, Data_File.english_ba_english)
+        bot.send_document(call.message.chat.id, Data_File.english_ba_double_main)
+        bot.send_document(call.message.chat.id, Data_File.english_ma_english)
     elif call.data == 'forensic_science_syllabus':
-        bot.send_document(call.message.chat.id, File_data.FS_bvoc_forensic_science)
+        bot.send_document(call.message.chat.id, Data_File.FS_bvoc_forensic_science)
     elif call.data == 'bba_syllabus':
-        bot.send_document(call.message.chat.id, File_data.MS_bba)
+        bot.send_document(call.message.chat.id, Data_File.MS_bba)
     elif call.data == 'mathematics_syllabus':
-        bot.send_document(call.message.chat.id, File_data.Maths_bsc_mathematics)
-        bot.send_document(call.message.chat.id, File_data.Maths_msc_mathematics)
+        bot.send_document(call.message.chat.id, Data_File.Maths_bsc_mathematics)
+        bot.send_document(call.message.chat.id, Data_File.Maths_msc_mathematics)
     elif call.data == 'media_syllabus':
-        bot.send_document(call.message.chat.id, File_data.Media_ba_multimedia)
-        bot.send_document(call.message.chat.id, File_data.Media_ba_visual_communication)
-        bot.send_document(call.message.chat.id, File_data.Media_ma_visual_communication)
+        bot.send_document(call.message.chat.id, Data_File.Media_ba_multimedia)
+        bot.send_document(call.message.chat.id, Data_File.Media_ba_visual_communication)
+        bot.send_document(call.message.chat.id, Data_File.Media_ma_visual_communication)
     elif call.data == 'physics_syllabus':
-        bot.send_document(call.message.chat.id, File_data.Physics_bsc_physics)
-        bot.send_document(call.message.chat.id, File_data.Physics_msc_physics)
+        bot.send_document(call.message.chat.id, Data_File.Physics_bsc_physics)
+        bot.send_document(call.message.chat.id, Data_File.Physics_msc_physics)
     elif call.data == 'psychology_syllabus':
-        bot.send_document(call.message.chat.id, File_data.Psychology_integrated_msc_psychology)
+        bot.send_document(call.message.chat.id, Data_File.Psychology_integrated_msc_psychology)
     elif call.data == 'social_work_syllabus':
-        bot.send_document(call.message.chat.id, File_data.SW_msw)
+        bot.send_document(call.message.chat.id, Data_File.SW_msw)
     elif call.data == 'statistics_syllabus':
-        bot.send_document(call.message.chat.id, File_data.Stati_bsc_statistics)
-        bot.send_document(call.message.chat.id, File_data.Stati_msc_statistics)
+        bot.send_document(call.message.chat.id, Data_File.Stati_bsc_statistics)
+        bot.send_document(call.message.chat.id, Data_File.Stati_msc_statistics)
     elif call.data == 'zoology_syllabus':
-        bot.send_document(call.message.chat.id, File_data.Zoology_bsc_zoology)
-        bot.send_document(call.message.chat.id, File_data.Zoology_msc_zoology)
+        bot.send_document(call.message.chat.id, Data_File.Zoology_bsc_zoology)
+        bot.send_document(call.message.chat.id, Data_File.Zoology_msc_zoology)
 #############################
 ################################################################################################################################
 
@@ -680,32 +889,32 @@ def linux_distro_reccomendator_menu(message):
 def handle_callback_linuxdistro_buttons(call):
     if call.data == 'beginners_linuxdistro':
         bot.send_message(call.message.chat.id, 'Top linux Distro for beginners')
-        bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_beginners)
+        bot.send_message(call.message.chat.id, Data_File.linux_distro_recomendator_beginners)
 
     elif call.data == 'gamers_linuxdistro':
         bot.send_message(call.message.chat.id, 'Top linux Distro for gamers')
-        bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_gamers)
+        bot.send_message(call.message.chat.id, Data_File.linux_distro_recomendator_gamers)
 
     elif call.data == 'professional_use_linuxdistro':
         bot.send_message(call.message.chat.id, 'Top linux Distro for Professional_use')
-        bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_proffesional_use)
+        bot.send_message(call.message.chat.id, Data_File.linux_distro_recomendator_proffesional_use)
 
     elif call.data == 'low_spec_system_linuxdistro':
         bot.send_message(call.message.chat.id, 'Top linux Distro for low_spec_system')
-        bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_low_spec_system)
+        bot.send_message(call.message.chat.id, Data_File.linux_distro_recomendator_low_spec_system)
 
     elif call.data == 'hackers_linuxdistro':
         bot.send_message(call.message.chat.id, 'To. linux Distro for hackers')
-        bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_hackers)
+        bot.send_message(call.message.chat.id, Data_File.linux_distro_recomendator_hackers)
 
     elif call.data == 'developers_linuxdistro':
         bot.send_message(call.message.chat.id, 'Top linux Distro for Developers')
-        bot.send_message(call.message.chat.id, File_data.linux_distro_recomendator_developers)
+        bot.send_message(call.message.chat.id, Data_File.linux_distro_recomendator_developers)
 ##############################
 ### Linux commands pdf #######
 @bot.message_handler(commands=['linuxcommandpdf'])
 def send_linux_commands_pdf(message):
-    bot.send_document(message.chat.id,File_data.linux_commands_pdf)
+    bot.send_document(message.chat.id,Data_File.linux_commands_pdf)
 ##############################
 ######################################################################################################################
 

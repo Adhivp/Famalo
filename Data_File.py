@@ -1,3 +1,103 @@
+list_features = '''
+1. Online Course Recommendator - '/onlinecourse'
+2. YouTube Course Recommendator - '/youtubecourse'
+3. Cheat Sheets - '/cheatsheet'
+4. GitHub Learning Resources - '/githublearn'
+5. External Mark Needed for Specific Grade - '/gradecalculator'
+6. Playback Speed Calculator - '/playbackspeedcalculator'
+7. Password Generator - '/password'
+8. Text to Audio Converter - '/textaudio'
+9. QR Code Generator - '/qrcodegenerator'
+10. Morse Code Generator - '/morsecode'
+11. Weather Details of Your Current Location - '/weather'
+12. Random Activity Generator - '/activity'
+13. Syllabus Sender - '/syllabus'
+14. Linux Distro Recommendator - '/linuxdistro'
+15. Linux Command PDF - '/linuxcommandpdf'
+16. Ask Me a Joke - '/joke'
+17. Roll a Dice - '/dice'
+18. Corporate BS - '/corporatebs'
+19. Superhero Details - '/super'
+20. Random Meme Generator - '/meme'
+'''
+
+#################Possible keywords for each command ###################################
+online_course_possible_keywords = ['online course', 'udemy', 'coursera', 'onlinecourse', 'online cors',
+                                    'onlie course', 'ondline course', 'oneline course', 'udamy', 'udmey',
+                                    'udemu', 'courseraa', 'corsera', 'coursesra', 'onlinecouse', 'onlinecoarse',
+                                    'onlinecours', 'onlnie course', 'onilne course', 'onlne course', 'ondilne course',
+                                    'onlinne course', 'udemmy', 'udemyy', 'udemyy', 'courser', 'couser', 'corusera']
+
+youtube_course_possible_keywords = ['youtube','yutube', 'youtub', 'uoutube', 'youtibe', 'yuotube', 
+                                    'youtuube', 'youtubee', 'youtbe', 'youtubr', 'yuotube', 
+                                    'youtub', 'youtubbe', 'youtupe', 'youtub3', 'youtibe', 
+                                    'youube', 'yooutube', 'youtub4', 'youtbue']
+
+cheat_sheet_possible_keywords = ['cheat sheet', 'cheatsheet', 'cheet sheet', 'cheetshet', 'cheetseet', 'cheat seet',
+                                'cheat shet', 'cheet sheat', 'cheetsheet', 'cheetshett', 'cheetseett', 'cheet seett',
+                                'cheet shett', 'cheet sheatt', 'cheatsheeet', 'cheatshett', 'cheat sheat', 'cheetsheatt',
+                                'cheatsheett', 'cheat sheatt']
+
+github_learn_possible_keywords = ['github', 'github learn', 'github resources', 'git hub', 'git hub learn', 'git hub resources',
+                                'github learn', 'github resources', 'github learn', 'github resources', 'gith ub', 'gith ub learn',
+                                'gith ub resources', 'git-hub', 'git-hub learn', 'git-hub resources', 'githublearn', 'githubresources',
+                                'git hublearn', 'git hubresources']
+
+external_mark_calculator_possbile_keywords = ['grade', 'external mark', 'internal mark', 'externalmark', 'internalmark', 'grad',
+                                            'externl mark', 'internal mrk', 'externlmark', 'internlmark', 'external assessment',
+                                            'internal assessment', 'external marking', 'internal marking', 'garde', 'external marks',
+                                            'internal marks', 'externalmarks', 'internalmarks', 'grde', 'externel mark', 'internel mark', 
+                                            'externelmark', 'internlmark', 'externl assessment', 'external marking', 'internal marking']
+
+playback_speed_possible_keywords = ['speed', 'playbackspeed', 'play back speed', 'play backspeed', 'playback speed', 'sped', 'playbakspeed',
+                                     'play bak speed', 'play back sped', 'playbak sped', 'playbak sped', 'play bak speed']
+
+password_generator_possible_keywords = ['password', 'passwordgenerator', 'password generator', 'pssword', 'passwordgeneratr', 
+                                        'password generatr', 'pasword', 'passwordgeneraotr', 'password generaotr']
+
+text_to_audio_possible_keywords = ['text to audio', 'audio', 'texttoaudio', 'txt to audio', 'audi', 'texttoaudi', 'text toaudi', 'text 2 audio',
+                                    'audio text', 'text2audio', 'audio', 'txt 2 audio', 'audi', 'text2audi', 'text 2audi', 'text-to-audio', 'audio',
+                                    'text-to-audio', 'txt-to-audio', 'audi', 'texttoaudio', 'text-toaudio', 'text to audio', 'audio', 'texttoaudio',
+                                    'txt to audio', 'audi', 'texttoaudi', 'text toaudi', 'txt2audio', 'aud', 'text-toaudio', 'text 2-audio', 'aud',
+                                    'text2-audio', 'audio text', 'txt2-audio', 'text 2audio', 'audio-text', 'text2audio']
+
+qr_code_generator_possible_keywords = ['qr', 'qr code', 'qrcode', 'q-r', 'q-r code', 'qr-code']
+
+morse_code_generator_possible_keywords = ['morse', 'morse code', 'morsecode', 'morze', 'morze code',
+                                        'morzecode', 'mors', 'mors code', 'morscode']
+
+weather_possible_keywords = ['weather', 'temperature', 'humidity', 'rain', 'location', 'wether', 'temprature', 'humidity', 'rane', 'loction',
+                            'weathr', 'tempreture', 'humidity', 'rein', 'locatin', 'weathe', 'temperatur', 'humidty', 'locaton', 'wather',
+                            'temparature', 'hmidity', 'raain', 'locaion', 'waether', 'temperatue', 'humidy', 'rainn', 'lcoation',
+                            'wahter', 'temperate', 'hunidity', 'lcation', 'weatther', 'temperture', 'humididy', 'rean', 'locatioon', 'wethr',
+                            'tmeperature', 'hmidty', 'ranin']
+
+random_activity_possible_keywords = ['activity', 'task', 'activty', 'taks', 'actvity']
+
+st_thomas_syllabus_possible_keywords = ['syllabus', 'curriculum', 'syllbus', 'curiculum', 'silabus', 'curruculum', 'program', 'course outline', 
+                                    'study plan', 'subject matter', 'lesson plan', 'outline' , 'syllab', 
+                                    'curriculm', 'syllabu', 'curricum', 'sylabus', 'curruculm', 'sylabus', 'curruculum', 'syllabs', 'curriculam', 'silabas',
+                                    'curruculam', 'silabus', 'curriculum', 'syllbass', 'curruculm', 'sylabas', 'curruculum']
+linux_distro_reccomendator_possible_keywords = ['distro','linux distro', 'linuxdistro', 'linx distro', 'linxdistro', 'linu distro', 'linudistro', 'lnux distro', 
+                                                'lnuxdistro', 'linux disto', 'linuxdistr', 'linux distor', 'linuxdistro']
+
+linux_commands_pdf_sender_possible_keywords = ['command','linuxcommand', 'linux command', 'linux commands', 'linuxcommands', 'linxcommand', 'linx command', 'linx commands',
+                                                'linxcommands', 'linu command', 'linu commands', 'lnux command', 'lnux commands', 'linux comand', 'linux comands', 
+                                                'linuxcomand', 'linuxcomands']
+
+random_joke_possible_keywords = ['joke', 'comedy', 'jok', 'comdy', 'jooke', 'comedi', 'jok', 'comdy', 'joek', 'comdey', 'joake', 'comdei']
+
+Dice_possible_keywords = ['dice', 'die', 'gambling cube', 'game of chance', 'random number generator', 'dice roll', 'dice game',
+                           'rolling the dice', 'craps']
+
+Coporate_bs_possible_keywords = ['bs', 'bullshit', 'busswords', 'bussword', 'buzzwords', 'coporate bs', 'coporatebs', 'bull shit',
+                 'buswords', 'busword', 'buzwords', 'cporate bs', 'cporatebs', 'bulshit']
+
+super_hero_possible_keywords = ['hero', 'super', 'superhero', 'super hero', 'heroe', 'supr', 'suprhero', 'supr hero',
+                                'herro', 'sper', 'sperhero', 'sper hero']
+
+Random_meme_possible_keywords = ['meme']
+#######################################################################################
 Online_course_Python_Udemy = ("https://www.udemy.com/course/100-days-of-code",
     "https://www.udemy.com/course/complete-python-bootcamp/",
     "https://www.udemy.com/course/complete-python-developer-zero-to-mastery/",
