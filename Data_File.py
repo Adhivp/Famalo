@@ -12,13 +12,14 @@ list_features = '''
 11. Weather Details of Your Current Location - '/weather'
 12. Random Activity Generator - '/activity'
 13. Syllabus Sender - '/syllabus'
-14. Linux Distro Recommendator - '/linuxdistro'
-15. Linux Command PDF - '/linuxcommandpdf'
-16. Ask Me a Joke - '/joke'
-17. Roll a Dice - '/dice'
-18. Corporate BS - '/corporatebs'
-19. Superhero Details - '/super'
-20. Random Meme Generator - '/meme'
+14. Latest news Sender - '/news'
+15. Linux Distro Recommendator - '/linuxdistro'
+16. Linux Command PDF - '/linuxcommandpdf'
+17. Ask Me a Joke - '/joke'
+18. Roll a Dice - '/dice'
+19. Corporate BS - '/corporatebs'
+20. Superhero Details - '/super'
+21. Random Meme Generator - '/meme'
 '''
 
 #################Possible keywords for each command ###################################
@@ -78,6 +79,9 @@ st_thomas_syllabus_possible_keywords = ['syllabus', 'curriculum', 'syllbus', 'cu
                                     'study plan', 'subject matter', 'lesson plan', 'outline' , 'syllab', 
                                     'curriculm', 'syllabu', 'curricum', 'sylabus', 'curruculm', 'sylabus', 'curruculum', 'syllabs', 'curriculam', 'silabas',
                                     'curruculam', 'silabus', 'curriculum', 'syllbass', 'curruculm', 'sylabas', 'curruculum']
+st_thomas_news_sender_possible_keywords = ["nwes","neew","nws","newz","neew","niew","neew","knws","nwez","neew","newz"
+                                           "nwss","neus","newx","nuws","naws","bews","nwes","neas","bews","neas","nwws","neas","nrw",
+                                            "nees","neas","neqs","neqs","nrws","news","newx","naws","nebs","news","nrrw",]
 linux_distro_reccomendator_possible_keywords = ['distro','linux distro', 'linuxdistro', 'linx distro', 'linxdistro', 'linu distro', 'linudistro', 'lnux distro', 
                                                 'lnuxdistro', 'linux disto', 'linuxdistr', 'linux distor', 'linuxdistro']
 

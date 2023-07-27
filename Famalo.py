@@ -12,6 +12,7 @@ from telebot import types
 import os
 import png
 from tabulate import tabulate
+from bs4 import BeautifulSoup
 import Data_File
 from API_of_adhi import API_key_Famalo,coporate_bs_api_key,API_weather_key #API keys
 
@@ -116,6 +117,11 @@ def action_input_processing(message):
             possible_command = 'syllabus'
             bot.register_next_step_handler(message,Y_N_possible_command,possible_command)
             break
+        elif keyword in Data_File.st_thomas_news_sender_possible_keywords :
+            bot.send_message(message.chat.id,"Did you latest news sender of ST thomas college (Y/N)")
+            possible_command = 'news'
+            bot.register_next_step_handler(message,Y_N_possible_command,possible_command)
+            break
         elif keyword in Data_File.linux_distro_reccomendator_possible_keywords or _2_keywords in  Data_File.linux_distro_reccomendator_possible_keywords:
             bot.send_message(message.chat.id,"Did you mean linux distro reccomendator (Y/N)")
             possible_command = 'linuxdistro'
@@ -200,6 +206,9 @@ def Y_N_possible_command(message,possible_command):
     elif Y_N == 'Y' and possible_command == 'syllabus':
         bot.send_message(message.chat.id,"Here you go syllabus sender of ST thomas college")
         syllabus_Department_menu(message)
+    elif Y_N == 'Y' and possible_command == 'news':
+        bot.send_message(message.chat.id,"Here you go news sender of ST thomas college")
+        latest_5_news_fetcher(message)
     elif Y_N == 'Y' and possible_command == 'linuxdistro':
         bot.send_message(message.chat.id,"Here you go linux distro reccomendator")
         linux_distro_reccomendator_menu(message)
@@ -280,6 +289,7 @@ def send_real_life_menu(message):
 def send_st_thomas_college_menu(message):
     bot.send_message(message.chat.id,"ST Thomas College specific MENU")
     bot.send_message(message.chat.id,"Syllabus Sender -/syllabus")
+    bot.send_message(message.chat.id,"Latest News sender - /news")
 
 @bot.message_handler(commands=['system'])
 def send_system_menu(message):
@@ -775,7 +785,7 @@ def handle_activity_buttons(call):
 ############################################################################################################################
 
 ################################################# St thomas college Specific  Menu Features##################################################
-
+######Syllabus viewer########
 @bot.message_handler(commands=['syllabus'])
 def syllabus_Department_menu(message):
     keyboard = types.InlineKeyboardMarkup()
@@ -865,6 +875,43 @@ def syllabus_button_callback(call):
     elif call.data == 'zoology_syllabus':
         bot.send_document(call.message.chat.id, Data_File.Zoology_bsc_zoology)
         bot.send_document(call.message.chat.id, Data_File.Zoology_msc_zoology)
+
+#############################
+#########Latest News#########
+@bot.message_handler(commands=['news'])
+def latest_5_news_fetcher(message):
+    main_url = "https://stthomas.ac.in/college-news/"
+
+    response = requests.get(main_url)
+    if response.status_code != 200:
+        bot.send_message(message.chat.id,"ST Thomas offical website is down")
+
+    soup = BeautifulSoup(response.content, "html.parser")
+    article_tags = soup.select("article")[:5]#latest 5 articles
+    img_tags = soup.select("img")[2:7]
+    article_headings_list=[]
+    img_tags_list=[]
+    a_urls_list=[]
+
+    for img in img_tags:
+        img_src = img.get("src")
+        img_tags_list.append(img_src)
+    for article in article_tags:
+        article_title = article.select_one("h2").get_text()
+        article_headings_list.append(article_title)
+    for a in article_tags:
+        a_href = a.find("a").get("href")
+        a_urls_list.append(a_href)
+
+    latest_5_news_sender(message,article_headings_list,img_tags_list,a_urls_list)
+def latest_5_news_sender(message,article_headings_list,img_tags_list,a_urls_list):
+    bot.send_message(message.chat.id,"Latest 5 news (last one is the latest one) ")
+    #sending news in order , latest last
+    bot.send_photo(message.chat.id,img_tags_list[4],article_headings_list[4]+"\n"+a_urls_list[4])
+    bot.send_photo(message.chat.id,img_tags_list[3],article_headings_list[3]+"\n"+a_urls_list[3])
+    bot.send_photo(message.chat.id,img_tags_list[2],article_headings_list[2]+"\n"+a_urls_list[2])
+    bot.send_photo(message.chat.id,img_tags_list[1],article_headings_list[1]+"\n"+a_urls_list[1])
+    bot.send_photo(message.chat.id,img_tags_list[0],article_headings_list[0]+"\n"+a_urls_list[0])
 #############################
 ################################################################################################################################
 

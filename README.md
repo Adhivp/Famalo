@@ -49,6 +49,7 @@ Each category in the main menu has its own submenu with more specific features. 
 ### ST Thomas College Specific
 
 - Syllabus Sender 📚: Access syllabus resources.
+- Latest News Sender📰 : Latest 5 news of ST thomas College.
 
 ### System-Based
 
