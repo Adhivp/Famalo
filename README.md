@@ -1,4 +1,7 @@
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)
+
+Note: Famalo is a Telegram bot, and you need to have Telegram installed to use its features.
+- https://t.me/Famalo_bot - for trying my bot (If server is on)
 # Famalo - Your All-in-One Buddy
 
 Famalo is a Telegram bot designed to provide a variety of functionalities and services. It serves as your all-in-one buddy, offering features in different categories to meet your needs. This README file provides an overview of the main menu and submenus available in Famalo.**It also as a auto feature detection option which will try to detect feature depending on your input text.**
